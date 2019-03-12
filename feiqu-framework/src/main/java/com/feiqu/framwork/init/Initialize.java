@@ -12,8 +12,10 @@ import com.feiqu.framwork.constant.CommonConstant;
 import com.feiqu.system.base.BaseInterface;
 import com.feiqu.system.mapper.FqAreaMapper;
 import com.feiqu.system.model.*;
-import com.feiqu.system.pojo.response.*;
-import com.feiqu.system.pojo.simple.BeautySim;
+import com.feiqu.system.pojo.response.KeyValue;
+import com.feiqu.system.pojo.response.SimThoughtDTO;
+import com.feiqu.system.pojo.response.ThoughtWithUser;
+import com.feiqu.system.pojo.response.UserActiveNumResponse;
 import com.feiqu.system.pojo.simple.FqUserSim;
 import com.feiqu.system.service.*;
 import com.feiqu.system.service.impl.FqBackgroundImgServiceImpl;
@@ -110,13 +112,7 @@ public class Initialize implements BaseInterface {
 			CommonConstant.HOT_ARTICLE_LIST = articleService.selectByExample(articleExample);
 
 			PageHelper.startPage(0,5,false);
-			SuperBeautyService superBeautyService = (SuperBeautyService) SpringUtils.getBean("superBeautyServiceImpl");
-			SuperBeautyExample beautyExample = new SuperBeautyExample();
-			beautyExample.setOrderByClause("like_count desc");
-			List<BeautyUserResponse> beauties = superBeautyService.selectDetailByExample(beautyExample);
-			if(CollectionUtil.isNotEmpty(beauties)){
-                CommonConstant.HOT_BEAUTY_LIST = beauties;
-            }
+
 
 			FqAreaMapper areaMapper = SpringUtils.getBean(FqAreaMapper.class);
 			CommonConstant.AREA_LIST = areaMapper.selectByExample(new FqAreaExample());
@@ -161,10 +157,10 @@ public class Initialize implements BaseInterface {
                 CommonConstant.CATEGORIES.add(new KeyValue(categoryEnum.getCode(),categoryEnum.getDesc()));
             }
 
-			String banners = commands.get(CommonConstant.BEAUTY_BANNERS_REDIS);
-			if(StringUtils.isNotEmpty(banners)){
-				CommonConstant.BEAUTY_BANNERS = JSON.parseArray(banners, BeautySim.class);
-			}
+//			String banners = commands.get(CommonConstant.BEAUTY_BANNERS_REDIS);
+//			if(StringUtils.isNotEmpty(banners)){
+//				CommonConstant.BEAUTY_BANNERS = JSON.parseArray(banners, BeautySim.class);
+//			}
 
 			int month = DateUtil.thisMonth()+1;
 			Set<String> userIds =commands.zrevrange(CommonConstant.FQ_ACTIVE_USER_SORT+month,0,4);

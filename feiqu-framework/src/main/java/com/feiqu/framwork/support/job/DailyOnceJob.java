@@ -9,7 +9,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.alibaba.fastjson.JSON;
-import com.feiqu.common.enums.GirlCategoryEnum;
 import com.feiqu.common.enums.UserStatusEnum;
 import com.feiqu.common.enums.YesNoEnum;
 import com.feiqu.framwork.constant.CommonConstant;
@@ -53,8 +52,8 @@ public class DailyOnceJob {
     private FqBackgroundImgService fqBackgroundImgService;
     @Resource
     private FqShortVideoService fqShortVideoService;
-    @Resource
-    private SuperBeautyService superBeautyService;
+//    @Resource
+//    private SuperBeautyService superBeautyService;
     @Resource
     private ThoughtService thoughtService;
     @Resource
@@ -449,18 +448,6 @@ public class DailyOnceJob {
                                 continue;
                             }
                             title = StrUtil.str(title,Charset.forName("utf-8"));
-                            SuperBeauty superBeauty = new SuperBeauty();
-                            superBeauty.setImgUrl(imgUrl);
-                            superBeauty.setTitle(title);
-                            superBeauty.setLikeCount(0);
-                            superBeauty.setCreateTime(now);
-                            superBeauty.setUploadUserId(22);
-                            superBeauty.setCategory(GirlCategoryEnum.NV_SHENG.getCode());
-                            superBeauty.setDelFlag(YesNoEnum.NO.getValue());
-                            superBeauty.setPicList(picUrls.toString());
-                            superBeauty.setPicDescList(picDescs.toString());
-                            superBeautyService.insert(superBeauty);
-                            picLog = superBeauty.toString();
                             insertPic = true;
                             file.delete();
                         }

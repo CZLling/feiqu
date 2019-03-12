@@ -9,7 +9,6 @@ import com.feiqu.framwork.support.spider.TopicInfoPipeline;
 import com.feiqu.framwork.support.spider.V2exDTO;
 import com.feiqu.framwork.util.HttpClientUtil;
 import com.feiqu.system.model.*;
-import com.feiqu.system.pojo.response.BeautyUserResponse;
 import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
 import com.feiqu.system.pojo.response.wangyi.NewsResponse;
@@ -48,8 +47,7 @@ public class HotContentJob {
 
     @Resource
     private FqNoticeService fqNoticeService;
-    @Resource
-    private SuperBeautyService superBeautyService;
+
     @Resource
     private ThoughtService thoughtService;
     @Resource
@@ -112,12 +110,12 @@ public class HotContentJob {
         }
 
         PageHelper.startPage(0,5,false);
-        SuperBeautyExample beautyExample = new SuperBeautyExample();
-        beautyExample.setOrderByClause("like_count desc");
-        List<BeautyUserResponse> beauties = superBeautyService.selectDetailByExample(beautyExample);
-        if(CollectionUtil.isNotEmpty(beauties)){
-            CommonConstant.HOT_BEAUTY_LIST = beauties;
-        }
+//        SuperBeautyExample beautyExample = new SuperBeautyExample();
+//        beautyExample.setOrderByClause("like_count desc");
+//        List<BeautyUserResponse> beauties = superBeautyService.selectDetailByExample(beautyExample);
+//        if(CollectionUtil.isNotEmpty(beauties)){
+//            CommonConstant.HOT_BEAUTY_LIST = beauties;
+//        }
 
         try {
             int month = DateUtil.thisMonth()+1;

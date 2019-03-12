@@ -1,0 +1,67 @@
+2019-03-11 22:01:14 [ INFO ] [ DirectJDKLog.java :173(log)]  Initializing ProtocolHandler ["http-nio-0.0.0.0-8080"]
+2019-03-11 22:01:14 [ INFO ] [ DirectJDKLog.java :173(log)]  Starting service [Tomcat]
+2019-03-11 22:01:14 [ INFO ] [ DirectJDKLog.java :173(log)]  Starting Servlet Engine: Apache Tomcat/9.0.13
+2019-03-11 22:01:14 [ INFO ] [ DirectJDKLog.java :173(log)]  The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\Java\jdk1.8.0_172\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\NetSarang;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;D:\Java\jdk1.8.0_172\bin;D:\Java\jdk1.8.0_172\jre\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\WINDOWS\System32\OpenSSH\;"D:\Tools\tomcat\apache-tomcat-9.0.13\lib;D:\Tools\tomcat\apache-tomcat-9.0.13\bin";D:\Maven\apache-maven-3.6.0\bin\;D:\NoSQL\Redis\;D:\Tools\Git\cmd;D:\Jmeter\apache-jmeter-4.0\bin;C:\Users\window\AppData\Local\Microsoft\WindowsApps;;.]
+2019-03-11 22:01:14 [ INFO ] [ DirectJDKLog.java :173(log)]  Initializing Spring embedded WebApplicationContext
+2019-03-11 22:01:16 [ INFO ] [ JedisProviderFactoryBean.java :175(registerRedisProvier)]  register JedisProvider OK,Class:JedisStandaloneProvider,beanName:defaultRedisProvider
+2019-03-11 22:01:16 [ INFO ] [ DirectJDKLog.java :173(log)]  Starting ProtocolHandler ["http-nio-0.0.0.0-8080"]
+2019-03-11 22:01:16 [ INFO ] [ DirectJDKLog.java :173(log)]  Using a shared selector for servlet write/read
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :56(run)]  >>>>> spring初始化完毕 <<<<<
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.ApiDocInterfaceServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.ApiDocModuleServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.ApiDocProjectServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.ApiDocProjectUserServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.ArticleServiceImpl$$EnhancerBySpringCGLIB$$70bc0778.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.CMessageServiceImpl$$EnhancerBySpringCGLIB$$367275bc.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqBackgroundImgServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqCollectServiceImpl$$EnhancerBySpringCGLIB$$ab5df1fd.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqFriendLinkServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqLabelServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqMusicServiceImpl$$EnhancerBySpringCGLIB$$2ddac40c.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqNewsServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqNoticeServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqShortVideoServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqSignServiceImpl$$EnhancerBySpringCGLIB$$c415a870.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqThemeServiceImpl$$EnhancerBySpringCGLIB$$ae26eb20.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqThirdPartyServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqTopicServiceImpl$$EnhancerBySpringCGLIB$$b5d49ee.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqUserActiveNumServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqUserActivityRecordServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqUserPayWayServiceImpl.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqUserServiceImpl$$EnhancerBySpringCGLIB$$9d082f46.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqVisitRecordServiceImpl$$EnhancerBySpringCGLIB$$80b53b07.initMapper()
+2019-03-11 22:01:16 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.FqWebsiteDirServiceImpl$$EnhancerBySpringCGLIB$$262644d1.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.GeneralCommentServiceImpl$$EnhancerBySpringCGLIB$$c82f063.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.GeneralLikeServiceImpl.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.GeneralReplyServiceImpl$$EnhancerBySpringCGLIB$$d7f7d102.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.JobTalkServiceImpl$$EnhancerBySpringCGLIB$$f8f016bf.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.NginxLogServiceImpl$$EnhancerBySpringCGLIB$$9ba8754a.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.QuestionServiceImpl$$EnhancerBySpringCGLIB$$b11d3f76.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.SuperBeautyServiceImpl$$EnhancerBySpringCGLIB$$a0e319d5.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.ThoughtServiceImpl$$EnhancerBySpringCGLIB$$258e4a8f.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.UploadImgRecordServiceImpl.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.UserActivateServiceImpl.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.UserFollowServiceImpl$$EnhancerBySpringCGLIB$$7474c054.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.UserTimeLineServiceImpl.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ FeiquInitTrigger.java :60(run)]  >>>>> com.feiqu.system.service.impl.WangHongWanServiceImpl.initMapper()
+2019-03-11 22:01:17 [ INFO ] [ DruidDataSource.java :930(init)]  {dataSource-1} inited
+2019-03-11 22:01:17 [ INFO ] [ Initialize.java :201(init)]  >>>>>飞趣社区 系统初始化完成！<<<<<<
+2019-03-11 22:02:26 [ INFO ] [ DirectJDKLog.java :173(log)]  A cookie header was received [1551883056,1551883099,1551886884] that contained an invalid cookie. That cookie will be ignored.Note: further occurrences of this error will be logged at DEBUG level.
+2019-03-11 22:02:26 [ INFO ] [ DirectJDKLog.java :173(log)]  Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-03-11 22:02:38 [ INFO ] [ UserController.java :378(dologin)]  login:登陆用户详情：FqUser [Hash = 281041595, id=null, username=15207166380@163.com, password=***, createTime=null, nickname=null, icon=null, createIp=null, city=null, sex=null, isSingle=null, isMailBind=null, sign=null, qudouNum=null, birth=null, education=null, school=null, role=null, level=null, status=null, serialVersionUID=1],ip:0:0:0:0:0:0:0:1
+2019-03-11 22:02:38 [ INFO ] [ MessageController.java :97(dialog)]  对话 uid:2
+2019-03-11 22:02:38 [ INFO ] [ MessageController.java :97(dialog)]  对话 uid:2
+2019-03-11 22:02:43 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:02:43 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:04:02 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:04:03 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:04:43 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:04:43 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:05:47 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:05:47 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:06:06 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:06:06 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:06:11 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:06:11 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:23:31 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝
+2019-03-11 22:23:31 [ INFO ] [ UserController.java :946(home)]  用户：Nunal登进我的小窝

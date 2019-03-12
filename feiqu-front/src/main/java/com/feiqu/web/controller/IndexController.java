@@ -1,22 +1,24 @@
 package com.feiqu.web.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
-import com.feiqu.common.enums.UserStatusEnum;
-import com.feiqu.framwork.util.WebUtil;
-import com.feiqu.framwork.web.base.BaseController;
-import com.feiqu.framwork.constant.CommonConstant;
-import com.feiqu.common.enums.TopicTypeEnum;
-import com.feiqu.common.enums.YesNoEnum;
-import com.feiqu.system.model.*;
-import com.feiqu.system.pojo.response.ArticleUserDetail;
-import com.feiqu.system.service.*;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Maps;
 import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+import com.feiqu.common.enums.TopicTypeEnum;
+import com.feiqu.common.enums.UserStatusEnum;
+import com.feiqu.common.enums.YesNoEnum;
+import com.feiqu.framwork.constant.CommonConstant;
+import com.feiqu.framwork.util.WebUtil;
+import com.feiqu.framwork.web.base.BaseController;
+import com.feiqu.system.model.*;
+import com.feiqu.system.pojo.response.ArticleUserDetail;
+import com.feiqu.system.service.ArticleService;
+import com.feiqu.system.service.FqLabelService;
+import com.feiqu.system.service.FqUserService;
+import com.feiqu.system.service.ThoughtService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,8 +48,8 @@ public class IndexController extends BaseController {
     @Autowired
     private ArticleService articleService;
 
-    @Autowired
-    private SuperBeautyService superBeautyService;
+//    @Autowired
+//    private SuperBeautyService superBeautyService;
     @Autowired
     private FqLabelService fqLabelService;
     @Autowired
@@ -75,11 +77,11 @@ public class IndexController extends BaseController {
             model.addAttribute("thoughtList",CommonConstant.HOT_THOUGHT_LIST );
             model.addAttribute("noticeList", CommonConstant.FQ_NOTICE_LIST);
             model.addAttribute("articleList", CommonConstant.HOT_ARTICLE_LIST);
-            model.addAttribute("beautyList", CommonConstant.HOT_BEAUTY_LIST );
+//            model.addAttribute("beautyList", CommonConstant.HOT_BEAUTY_LIST );
             model.addAttribute("newUserList", CommonConstant.NEW_SIMPLE_USERS );
             model.addAttribute("friendLinkList", CommonConstant.FRIEND_LINK_LIST );
             model.addAttribute("userCount", CommonConstant.FQ_USER_TOTAL_COUNT);
-            model.addAttribute("beautySims", CommonConstant.BEAUTY_BANNERS);
+//            model.addAttribute("beautySims", CommonConstant.BEAUTY_BANNERS);
             model.addAttribute("activeUserList",CommonConstant.FQ_ACTIVE_USER_LIST);
         }catch (Exception e){
            logger.error("主页 获取数据出错",e);

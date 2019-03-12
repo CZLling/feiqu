@@ -5,11 +5,9 @@ import com.feiqu.system.model.Article;
 import com.feiqu.system.model.FqArea;
 import com.feiqu.system.model.FqFriendLink;
 import com.feiqu.system.model.FqNotice;
-import com.feiqu.system.pojo.response.BeautyUserResponse;
 import com.feiqu.system.pojo.response.KeyValue;
 import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
-import com.feiqu.system.pojo.simple.BeautySim;
 import com.feiqu.system.pojo.simple.FqUserSim;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +45,7 @@ public class CommonConstant {
     public static List<FqNotice> FQ_NOTICE_LIST= null;
     public static List<Article> HOT_ARTICLE_LIST= null;
     public static List<FqArea> AREA_LIST= null;
-    public static List<BeautyUserResponse> HOT_BEAUTY_LIST = null;
+//    public static List<BeautyUserResponse> HOT_BEAUTY_LIST = null;
     public static List<ThoughtWithUser> HOT_THOUGHT_LIST = null;
     public static List<ThoughtWithUser> NEW_THOUGHT_LIST = null;
 
@@ -96,8 +94,8 @@ public class CommonConstant {
     public static String GENERAL_CUSTOM_ERROR_CODE = "errorMsg";//
 
 
-    public static List<BeautySim> BEAUTY_BANNERS = Lists.newArrayList();
-    public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
+//    public static List<BeautySim> BEAUTY_BANNERS = Lists.newArrayList();
+//    public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
 
     //网址点击事件统计
     public static String FQ_USER_WEBSITE_CLICK_COUNT = "fq_user_website_click_count";
