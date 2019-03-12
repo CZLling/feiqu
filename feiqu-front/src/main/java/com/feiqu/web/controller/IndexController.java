@@ -79,7 +79,7 @@ public class IndexController extends BaseController {
             model.addAttribute("articleList", CommonConstant.HOT_ARTICLE_LIST);
 //            model.addAttribute("beautyList", CommonConstant.HOT_BEAUTY_LIST );
             model.addAttribute("newUserList", CommonConstant.NEW_SIMPLE_USERS );
-            model.addAttribute("friendLinkList", CommonConstant.FRIEND_LINK_LIST );
+//            model.addAttribute("friendLinkList", CommonConstant.FRIEND_LINK_LIST );
             model.addAttribute("userCount", CommonConstant.FQ_USER_TOTAL_COUNT);
 //            model.addAttribute("beautySims", CommonConstant.BEAUTY_BANNERS);
             model.addAttribute("activeUserList",CommonConstant.FQ_ACTIVE_USER_LIST);
