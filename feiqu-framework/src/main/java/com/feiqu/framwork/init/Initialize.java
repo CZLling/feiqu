@@ -18,7 +18,7 @@ import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
 import com.feiqu.system.pojo.simple.FqUserSim;
 import com.feiqu.system.service.*;
-import com.feiqu.system.service.impl.FqBackgroundImgServiceImpl;
+//import com.feiqu.system.service.impl.FqBackgroundImgServiceImpl;
 import com.feiqu.system.service.impl.FqNoticeServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
@@ -133,9 +133,9 @@ public class Initialize implements BaseInterface {
 			userExample.clear();
 			CommonConstant.FQ_USER_TOTAL_COUNT = fqUserService.countByExample(userExample);
 
-			FqFriendLinkService fqFriendLinkService = SpringUtils.getBean("fqFriendLinkServiceImpl");
-			List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
-			CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
+//			FqFriendLinkService fqFriendLinkService = SpringUtils.getBean("fqFriendLinkServiceImpl");
+//			List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
+//			CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
 
 
 /*CommonConstant.aliossFsProvider = new AliyunossProvider(props.getStr("fs.group3.endpoint"),
@@ -146,10 +146,10 @@ public class Initialize implements BaseInterface {
 			CommonConstant.ALIYUN_OSS_ENDPOINT = props.getStr("fs.group3.endpoint");*/
 
 
-			FqBackgroundImgService fqBackgroundImgService = SpringUtils.getBean(FqBackgroundImgServiceImpl.class);
-			FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
-			backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
-			FqBackgroundImg fqBackgroundImg = fqBackgroundImgService.selectFirstByExample(backgroundImgExample);
+//			FqBackgroundImgService fqBackgroundImgService = SpringUtils.getBean(FqBackgroundImgServiceImpl.class);
+//			FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
+//			backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
+			FqBackgroundImg fqBackgroundImg = null;
 
 			CommonConstant.bgImgUrl = fqBackgroundImg == null?"https://img.t.sinajs.cn/t6/skin/skinvip805/images/body_bg.jpg?id=1410943047113":fqBackgroundImg.getImgUrl();
 

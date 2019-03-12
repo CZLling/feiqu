@@ -46,12 +46,10 @@ public class DailyOnceJob {
     private NginxLogService logService;
     @Resource
     private FqUserService fqUserService;
-    @Resource
-    private FqFriendLinkService fqFriendLinkService;
-    @Resource
-    private FqBackgroundImgService fqBackgroundImgService;
-    @Resource
-    private FqShortVideoService fqShortVideoService;
+//    @Resource
+//    private FqFriendLinkService fqFriendLinkService;
+//    @Resource
+//    private FqBackgroundImgService fqBackgroundImgService;
 //    @Resource
 //    private SuperBeautyService superBeautyService;
     @Resource
@@ -390,12 +388,12 @@ public class DailyOnceJob {
             userExample.clear();
             CommonConstant.FQ_USER_TOTAL_COUNT = fqUserService.countByExample(userExample);
 
-            List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
-            CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
+//            List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
+//            CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
 
-            FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
-            backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
-            FqBackgroundImg fqBackgroundImg = fqBackgroundImgService.selectFirstByExample(backgroundImgExample);
+//            FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
+//            backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
+            FqBackgroundImg fqBackgroundImg = null;
             CommonConstant.bgImgUrl = fqBackgroundImg == null?"https://img.t.sinajs.cn/t6/skin/skinvip805/images/body_bg.jpg?id=1410943047113":fqBackgroundImg.getImgUrl();
 
 
