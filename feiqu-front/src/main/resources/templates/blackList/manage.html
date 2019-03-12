@@ -72,7 +72,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                                     <%for(var b in beauties){%>
                                     <tr lay-data="${b.imgUrl!}">
                                         <td>${b.title}</td>
-                                        <td><a href="/beauty/${b.id}"> <img src="${b.imgUrl!}"></a></td>
+                                        <!--<td><a href="/beauty/${b.id}"> <img src="${b.imgUrl!}"></a></td>-->
                                         <td> <a href="${b.href!}">${b.href!}</a></td>
                                         <td> <a href="#" class="layui-btn layui-btn-danger removeFromBanner">移除banner</a></td>
                                     </tr>
