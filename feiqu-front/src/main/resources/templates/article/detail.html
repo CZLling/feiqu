@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>${article.articleTitle} -${oUser.nickname} -飞趣</title>
+    <title>${article.articleTitle} -${oUser.nickname} -随想</title>
     <meta name="description" content="${article.articleTitle}">
     <style>
         .art-item{position:relative;padding:16px 0}
@@ -139,7 +139,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     <p>匿名用户不提供任何信息</p>
                     <%}else{%>
                     <p>来自${oUser.city!}</p>
-                    <p>${printTime(oUser.createTime)}加入飞趣社区</p>
+                    <p>${printTime(oUser.createTime)}加入随想笔记</p>
                     <p>${decode(oUser.sex,1,"是个男孩纸哦",2,"是个女孩纸哦","作者未设置性别哦")}</p>
                     <p>学校是${oUser.school!"未设置"}</p>
                     <%}%>

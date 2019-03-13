@@ -345,23 +345,6 @@ public class DailyOnceJob {
         logger.info("生成文章完毕,耗时{}秒",seconds);
     }
 
-    //短视频删除 暂时不删除
-/* @Scheduled(cron = "1 0 0 * * ? ")
-    public void delShortVideos(){
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        FqShortVideoExample fqShortVideoExample = new FqShortVideoExample();
-        fqShortVideoExample.createCriteria().andCreateTimeLessThan(DateUtil.offsetDay(new Date(),-31));//删除31天之前的记录
-        List<FqShortVideo> shortVideos = fqShortVideoService.selectByExample(fqShortVideoExample);
-        if(CollectionUtil.isNotEmpty(shortVideos)){
-            shortVideos.forEach(shortVideo->{
-                shortVideo.setDelFlag(YesNoEnum.YES.getValue());
-                fqShortVideoService.updateByPrimaryKey(shortVideo);
-            });
-        }
-        stopwatch.stop();
-        long seconds = stopwatch.elapsed(TimeUnit.SECONDS);
-        logger.info("31天前的短视频删除完毕,耗时{}秒",seconds);
-    }*/
 
 
     //更新昨天的新用户 以及更新下友情链接 以及更新背景图片 插入图片 （如果修改了的话 数据库）

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <%include("/common/_head.html"){}%>
-    <title>${thought.thoughtContent!''} -${oUser.nickname} -飞趣</title>
+    <title>${thought.thoughtContent!''} -${oUser.nickname} -随想</title>
     <meta name="description" content="${thought.thoughtContent}">
     <style type="text/css">
         .floor {
@@ -110,7 +110,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
                 <div class="c-panel-body">
                     <p>来自${oUser.city!"未知"}</p>
-                    <p>${printTime(oUser.createTime)}加入飞趣社区</p>
+                    <p>${printTime(oUser.createTime)}加入随想笔记</p>
                     <p>${decode(oUser.sex,1,"是个男孩纸",2,"是个女孩纸","想法主人未设置性别")}</p>
                     <p>
                         情感状态：<%select{

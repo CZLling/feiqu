@@ -217,7 +217,7 @@ public class ThirdPartyLoginController extends BaseController {
                 message.setDelFlag(YesNoEnum.NO.getValue());
                 message.setReceivedUserId(fqUser.getId());
                 message.setType(MsgEnum.OFFICIAL_MSG.getValue());
-                message.setContent("系统消息通知：欢迎你来到飞趣社区，希望你在这体验愉快！ "+ DateUtil.formatDateTime(now));
+                message.setContent("系统消息通知：欢迎你来到随想笔记，希望你在这体验愉快！ "+ DateUtil.formatDateTime(now));
                 messageService.insert(message);
             }
         }else {//绑定

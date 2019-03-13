@@ -73,7 +73,7 @@ public class CommonConstant {
     public static List<FqUserSim> NEW_SIMPLE_USERS = null;
 
     public static String bgImgUrl = null;
-    //飞趣社区总人数
+    //随想笔记总人数
     public static int FQ_USER_TOTAL_COUNT = 0;
 
     public static int ALIYUN_OSS_EXPIRE = 300;

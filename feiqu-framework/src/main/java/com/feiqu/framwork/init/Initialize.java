@@ -189,7 +189,7 @@ public class Initialize implements BaseInterface {
 			JedisProviderFactory.getJedisProvider(null).release();
 		}
 
-		_log.info(">>>>>飞趣社区 系统初始化完成！<<<<<<");
+		_log.info(">>>>>随想笔记 系统初始化完成！<<<<<<");
 	}
 
 }
