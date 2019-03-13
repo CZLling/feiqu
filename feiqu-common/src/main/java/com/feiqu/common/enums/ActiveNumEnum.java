@@ -7,7 +7,6 @@ public enum ActiveNumEnum {
     POST_COMMENT("发表评论",2),
     POST_LIKE("点赞",1),
     SIGN_IN("签到",2),
-    VIDEO_UPLOAD("上传视频",20),
     UPDATE_BG_IMG("更新背景图片",2),
     UPDATE_ICON("更新头像",2),
     ;

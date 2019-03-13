@@ -3,7 +3,6 @@ package com.feiqu.framwork.constant;
 import cn.hutool.core.date.DateUtil;
 import com.feiqu.system.model.Article;
 import com.feiqu.system.model.FqArea;
-import com.feiqu.system.model.FqFriendLink;
 import com.feiqu.system.model.FqNotice;
 import com.feiqu.system.pojo.response.KeyValue;
 import com.feiqu.system.pojo.response.ThoughtWithUser;
@@ -26,7 +25,6 @@ public class CommonConstant {
     public static String USER_ID_COOKIE = "cwd33";
     public static String USER_COOKIE_SECRET = "cwd11";
     public static String FORGET_PASSWORD_SECRET = "cwd22";
-//    public static String DOMAIN_URL = "http://www.flyfun.site/";
 
     public static String DOMAIN_URL = "";
     public static Integer MAX_UPLOAD_SIZE = null;
@@ -50,7 +48,6 @@ public class CommonConstant {
     public static List<ThoughtWithUser> NEW_THOUGHT_LIST = null;
 
 
-    public static List<FqFriendLink> FRIEND_LINK_LIST = null;
 
     public static String ALIOSS_URL_PREFIX = null;
     public static String ALIYUN_OSS_BUCKET_NAME = null;
@@ -93,9 +90,6 @@ public class CommonConstant {
     public static String SEVEN_DAYS_HOT_THOUGHT_LIST = "fq_7_days_hot_thoughts_"+DateUtil.formatDate(new Date());//7天最热的
     public static String GENERAL_CUSTOM_ERROR_CODE = "errorMsg";//
 
-
-//    public static List<BeautySim> BEAUTY_BANNERS = Lists.newArrayList();
-//    public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
 
     //网址点击事件统计
     public static String FQ_USER_WEBSITE_CLICK_COUNT = "fq_user_website_click_count";

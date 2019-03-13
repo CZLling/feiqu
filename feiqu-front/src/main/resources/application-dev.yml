@@ -19,8 +19,8 @@ feiqu:
   maxUploadSize: 200
 
   uploadPath: D:/tempfile/
-  ip2regionDbPath: D:/file/ip2region.db
-
+  ip2regionDbPath:
+#D:/workspace/ip2region.db
 feiqu-redis:
   servers: localhost:6379
   password: MEciwDyfCb6lap2bpkdJhg==

@@ -20,7 +20,7 @@ feiqu:
   maxUploadSize: 200
 
   uploadPath: D:/tempfile/
-  ip2regionDbPath: D:/file/ip2region.db
+  ip2regionDbPath:
 #  ip2regionDbPath: /home/chenweidong/ip2region.db
 
 feiqu-redis:
@@ -107,7 +107,7 @@ spring:
               slave:
                   # 从数据源开关/默认关闭
                   enabled: false
-                  url: jdbc:mysql://localhost:3306/second?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                  url: jdbc:mysql://localhost:3306/cwd_boring?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                   username: root
                   encoded-password: B2v71f9TGEinS8kn/4xssw==
               # 初始连接数
