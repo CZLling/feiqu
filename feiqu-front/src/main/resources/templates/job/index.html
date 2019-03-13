@@ -100,7 +100,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
 
                 <div class="c-panel">
                     <ul class="c-list">
-                        <%for(var j in jobTalkList){%>
+                        <%for(var j in ){%>
                         <li><div class="reply-block"><span title="回复" class="comment-num">${j.commentCount!0}</span></div>
                             <div class="up-block">
                                 <h2><a title="${j.title}" class="title-href" href="${ctxPath}/job/detail/${j.id}"> ${j.title}</a></h2>
