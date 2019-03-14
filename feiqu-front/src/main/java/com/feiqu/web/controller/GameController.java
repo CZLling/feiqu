@@ -15,8 +15,4 @@ public class GameController {
     public String meditation(){
         return "/game/meditation.html";
     }
-    @GetMapping("study")
-    public String study(){
-        return "/game/study.html";
-    }
 }

@@ -22,7 +22,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 <div class="layui-col-md12">
                     <div class="layui-tab">
                         <ul class="layui-tab-title">
-                            <!--<li class="layui-this">Banner管理</li>-->
+                            <li class="layui-this">Banner管理</li>
                             <li>黑名单管理</li>
                             <li>访问IP管理</li>
                         </ul>
@@ -54,31 +54,31 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                                         </div>
                                     </div>
                                 </form>
-                                <table class="layui-table">
-                                    <colgroup>
-                                        <col width="150">
-                                        <col width="200">
-                                        <col>
-                                    </colgroup>
-                                    <thead>
-                                    <tr>
-                                        <th>标题</th>
-                                        <th>图片</th>
-                                        <th>href</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <%for(var b in beauties){%>
-                                    <tr lay-data="${b.imgUrl!}">
-                                        <td>${b.title}</td>
-                                        <!--<td><a href="/beauty/${b.id}"> <img src="${b.imgUrl!}"></a></td>-->
-                                        <td> <a href="${b.href!}">${b.href!}</a></td>
-                                        <td> <a href="#" class="layui-btn layui-btn-danger removeFromBanner">移除banner</a></td>
-                                    </tr>
-                                    <%}%>
-                                    </tbody>
-                                </table>
+                                <!--<table class="layui-table">-->
+                                    <!--<colgroup>-->
+                                        <!--<col width="150">-->
+                                        <!--<col width="200">-->
+                                        <!--<col>-->
+                                    <!--</colgroup>-->
+                                    <!--<thead>-->
+                                    <!--<tr>-->
+                                        <!--<th>标题</th>-->
+                                        <!--<th>图片</th>-->
+                                        <!--<th>href</th>-->
+                                        <!--<th>操作</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<%for(var b in beauties){%>-->
+                                    <!--<tr lay-data="${b.imgUrl!}">-->
+                                        <!--<td>${b.title}</td>-->
+                                        <!--&lt;!&ndash;<td><a href="/beauty/${b.id}"> <img src="${b.imgUrl!}"></a></td>&ndash;&gt;-->
+                                        <!--<td> <a href="${b.href!}">${b.href!}</a></td>-->
+                                        <!--<td> <a href="#" class="layui-btn layui-btn-danger removeFromBanner">移除banner</a></td>-->
+                                    <!--</tr>-->
+                                    <!--<%}%>-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
 
                             </div>
                             <div class="layui-tab-item">
@@ -163,34 +163,34 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 $tr.fadeOut(1000);
             })
         })
-        $('.removeFromBanner').on('click',function () {
-            var imgUrl = $(this).parents('tr').attr('lay-data');
-            layer.confirm('真将这幅图片从banner上移除么', function(index){
-                fly.json('/beauty/manage/addOrDelBanner?type=del',{imgUrl:imgUrl},function (res) {
-                    layer.msg('移除成功！');
-                });
-                layer.close(index);
-            });
-
-        })
-        laydate.render({
-            elem: '#test1' //指定元素
-            ,done: function(value, date, endDate){
-                console.log(value); //得到日期生成的值，如：2017-08-18
-                location.href='/blackList/manage?queryDate='+value
-
-            }
-        });
-
-        form.on('submit(bannerForm)', function(data){
-            layer.confirm('确定提交这幅图片加到banner上么', function(index){
-                fly.json('/beauty/manage/addOrDelBanner?type=add',data.field,function (res) {
-                    layer.msg('加入成功！');
-                });
-                layer.close(index);
-            });
-            return false
-        });
+        // $('.removeFromBanner').on('click',function () {
+        //     var imgUrl = $(this).parents('tr').attr('lay-data');
+        //     layer.confirm('真将这幅图片从banner上移除么', function(index){
+        //         fly.json('/beauty/manage/addOrDelBanner?type=del',{imgUrl:imgUrl},function (res) {
+        //             layer.msg('移除成功！');
+        //         });
+        //         layer.close(index);
+        //     });
+        //
+        // })
+        // laydate.render({
+        //     elem: '#test1' //指定元素
+        //     ,done: function(value, date, endDate){
+        //         console.log(value); //得到日期生成的值，如：2017-08-18
+        //         location.href='/blackList/manage?queryDate='+value
+        //
+        //     }
+        // });
+        //
+        // form.on('submit(bannerForm)', function(data){
+        //     layer.confirm('确定提交这幅图片加到banner上么', function(index){
+        //         fly.json('/beauty/manage/addOrDelBanner?type=add',data.field,function (res) {
+        //             layer.msg('加入成功！');
+        //         });
+        //         layer.close(index);
+        //     });
+        //     return false
+        // });
 
     });
 </script>
