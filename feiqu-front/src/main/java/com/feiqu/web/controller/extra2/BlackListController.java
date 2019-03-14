@@ -53,7 +53,7 @@ public class BlackListController extends BaseController {
             List<IpVisitDTO> keyValueList = Lists.newArrayList();
             tuples.forEach(tuple -> keyValueList.add(new IpVisitDTO(tuple.getElement(),tuple.getScore()+"", CommonUtils.getFullRegionByIp(tuple.getElement()))));
             model.addAttribute("visitIps",keyValueList);
-//            model.addAttribute("beauties",CommonConstant.BEAUTY_BANNERS);
+            model.addAttribute("beauties",CommonConstant.BEAUTY_BANNERS);
         } catch (Exception e) {
             logger.error("",e);
             model.addAttribute("errorMsg","出错了");
