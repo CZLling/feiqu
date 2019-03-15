@@ -3,7 +3,6 @@ package com.feiqu.web.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.RandomUtil;
@@ -33,9 +32,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.jeesuite.cache.command.RedisString;
 import com.jeesuite.cache.redis.JedisProviderFactory;
-import com.jeesuite.filesystem.FileSystemClient;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +80,7 @@ public class UserController extends BaseController {
     private CMessageService messageService;
     @Autowired
     private UploadImgRecordService uploadImgRecordService;
-    @Autowired
+    @Autowired(required=false)
     private JavaMailSenderImpl mailSender;
     @Autowired
     private UserActivateService userActivateService;
@@ -297,63 +294,74 @@ public class UserController extends BaseController {
         String fileName = "";
         File localFile = null;
         try {
-            long size = file.getSize();
-            int limit = 300 * 1024;//头像不超过50kb=>100kb=>300
-            if (size > limit) {
-                result.setResult(ResultEnum.FILE_TOO_LARGE);
-                result.setMessage("头像图片大小不能超过300KB");
-                return result;
-            }
+//            long size = file.getSize();
+//            int limit = 300 * 1024;//头像不超过50kb=>100kb=>300
+//            if (size > limit) {
+//                result.setResult(ResultEnum.FILE_TOO_LARGE);
+//                result.setMessage("头像图片大小不能超过300KB");
+//                return result;
+//            }
             FqUserCache user = webUtil.currentUser(request,response);
 
             if (user == null) {
                 result.setResult(ResultEnum.FAIL);
                 return result;
             }
-            String picUrl;
-            Date now = new Date();
-            String time = DateFormatUtils.format(now,"yyyy-MM-dd");
-            String path = CommonConstant.FILE_UPLOAD_TEMP_PATH+File.separator+time;
-            File fileParent = new File(path);
-            if(!fileParent.exists()){
-                fileParent.mkdir();
-            }
-//            String path = CommonConstant.ICON_UPLOAD_PATH + File.separator + time;
-            String extName = FileUtil.extName(file.getOriginalFilename());
-            List<String> picExtList = CommonConstant.picExtList;
-            if(!picExtList.contains(extName)){
-                result.setResult(ResultEnum.PIC_EXTNAME_NOT_RIGHT);
-                return result;
-            }
-            fileName = CommonConstant.FILE_NAME_PREFIX + DateUtil.format(now, "yyyyMMddHHmmss") + "." + extName;
-            localFile = new File(fileParent, fileName);
-            //MultipartFile自带的解析方法
-            file.transferTo(localFile);
+            // 文件保存路径  
+            String filePath = "D:/workspace/IdealProjects/feiqu-opensource/feiqu-front/src/main/resources/static/img/"+ file.getOriginalFilename(); // 转存文件  
+            file.transferTo(new File(filePath));
+            //上传的文件名
+            String filename = file.getOriginalFilename();
+            //文件的扩张名
+            String extensionName = filename.substring(filename.lastIndexOf(".") + 1);
+            //得到新的文件名
+            String newFileName = "/img/" +filename;
 
-            //记录图片md5
-            String picMd5 = DigestUtil.md5Hex(localFile);
-            //根据md5查数据库有没有
-            UploadImgRecordExample imgRecordExample = new UploadImgRecordExample();
-            imgRecordExample.createCriteria().andPicMd5EqualTo(picMd5).andPicSizeEqualTo(size);
-            UploadImgRecord uploadImgRecord = uploadImgRecordService.selectFirstByExample(imgRecordExample);
-            if (uploadImgRecord != null && StringUtils.isNotBlank(uploadImgRecord.getPicUrl())) {
-                picUrl = uploadImgRecord.getPicUrl();
-            } else {
-//                picUrl = provider.upload(fileName, localFile);//qiniu
-                picUrl = FileSystemClient.getClient("aliyun").upload("icon/"+fileName,localFile);
-//                aliyunOssClient.putObject(CommonConstant.ALIYUN_OSS_BUCKET_NAME,"icon/"+fileName,file.getInputStream());
-                picUrl+="?x-oss-process=image/resize,m_fixed,h_160,w_160";
-                uploadImgRecord = new UploadImgRecord(picUrl, picMd5, new Date(), WebUtil.getIP(request), user.getId(), size);
-                uploadImgRecordService.insert(uploadImgRecord);
-            }
+
+//            String picUrl;
+//            Date now = new Date();
+//            String time = DateFormatUtils.format(now,"yyyy-MM-dd");
+//            String path = CommonConstant.FILE_UPLOAD_TEMP_PATH+File.separator+time;
+//            File fileParent = new File(path);
+//            if(!fileParent.exists()){
+//                fileParent.mkdir();
+//            }
+////            String path = CommonConstant.ICON_UPLOAD_PATH + File.separator + time;
+//            String extName = FileUtil.extName(file.getOriginalFilename());
+//            List<String> picExtList = CommonConstant.picExtList;
+//            if(!picExtList.contains(extName)){
+//                result.setResult(ResultEnum.PIC_EXTNAME_NOT_RIGHT);
+//                return result;
+//            }
+//            fileName = CommonConstant.FILE_NAME_PREFIX + DateUtil.format(now, "yyyyMMddHHmmss") + "." + extName;
+//            localFile = new File(fileParent, fileName);
+//            //MultipartFile自带的解析方法
+//            file.transferTo(localFile);
+//
+//            //记录图片md5
+//            String picMd5 = DigestUtil.md5Hex(localFile);
+//            //根据md5查数据库有没有
+//            UploadImgRecordExample imgRecordExample = new UploadImgRecordExample();
+//            imgRecordExample.createCriteria().andPicMd5EqualTo(picMd5).andPicSizeEqualTo(size);
+//            UploadImgRecord uploadImgRecord = uploadImgRecordService.selectFirstByExample(imgRecordExample);
+//            if (uploadImgRecord != null && StringUtils.isNotBlank(uploadImgRecord.getPicUrl())) {
+//                picUrl = uploadImgRecord.getPicUrl();
+//            } else {
+////                picUrl = provider.upload(fileName, localFile);//qiniu
+//                picUrl = FileSystemClient.getClient("aliyun").upload("icon/"+fileName,localFile);
+////                aliyunOssClient.putObject(CommonConstant.ALIYUN_OSS_BUCKET_NAME,"icon/"+fileName,file.getInputStream());
+//                picUrl+="?x-oss-process=image/resize,m_fixed,h_160,w_160";
+//                uploadImgRecord = new UploadImgRecord(picUrl, picMd5, new Date(), WebUtil.getIP(request), user.getId(), size);
+//                uploadImgRecordService.insert(uploadImgRecord);
+//            }
             FqUser toUpdateUser = new FqUser();
-            toUpdateUser.setIcon(picUrl);
+            toUpdateUser.setIcon(newFileName);
             toUpdateUser.setId(user.getId());
             userService.updateByPrimaryKeySelective(toUpdateUser);
-            user.setIcon(picUrl);
+            user.setIcon(newFileName);
             CacheManager.refreshUserCacheByUser(user);
             CommonUtils.addActiveNum(user.getId(),ActiveNumEnum.UPDATE_ICON.getValue());
-            result.setData(picUrl);
+            result.setData(newFileName);
         } catch (Exception e) {
             logger.error("上传icon失败", e);
             result.setCode(CommonConstant.SYSTEM_ERROR_CODE);
