@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>随想笔记 -让生活更有趣</title>
+    <title>随想笔记 -随时记录你所想</title>
     <style>
         .c-list-info{position:relative;overflow:hidden;font-size:13px;line-height:2;color:#999}
         .detail-box{line-height:26px}
@@ -46,7 +46,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             </div>
             <div class="c-panel">
                 <div class="c-panel-title">
-                    <span class="title-first">最新的5个想法(每半个小时更新一次)</span>
+                    <span class="title-first">最新的5个随笔(每半个小时更新一次)</span>
                 </div>
                 <ul class="c-list2">
                     <%if(isNotEmpty(newThoughtList)){%>
@@ -84,7 +84,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             </div>
             <div class="c-panel">
                 <div class="c-panel-title">
-                    <span class="title-first">评论最多的5个想法</span>
+                    <span class="title-first">评论最多的5个随笔</span>
                 </div>
                 <ul class="c-list2" id="thoughtList">
                     <%if(isNotEmpty(thoughtList)){%>
@@ -174,10 +174,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel">
-                <div class="c-panel-title">热门文章(每半小时更新一次)</div>
+                <div class="c-panel-title">热门笔记(每半小时更新一次)</div>
                 <div class="hot detail-box">
                     <%if(isEmpty(articleList)){%>
-                    <p>暂无热门文章</p>
+                    <p>暂无热门笔记</p>
                     <%}else{%>
                     <ul>
                         <%for(var ha in articleList){%>

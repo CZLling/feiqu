@@ -106,12 +106,12 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
         <div class="layui-col-md4">
             <div class="c-panel">
                 <div class="c-panel-title">
-                    <span>想法主人简介</span>
+                    <span>随笔主人简介</span>
                 </div>
                 <div class="c-panel-body">
                     <p>来自${oUser.city!"未知"}</p>
                     <p>${printTime(oUser.createTime)}加入随想笔记</p>
-                    <p>${decode(oUser.sex,1,"是个男孩纸",2,"是个女孩纸","想法主人未设置性别")}</p>
+                    <p>${decode(oUser.sex,1,"是个男孩纸",2,"是个女孩纸","随笔主人未设置性别")}</p>
                     <p>
                         情感状态：<%select{
                         case oUser.isSingle == 1:print("单身");break;
@@ -130,10 +130,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel" style="min-height: 5rem">
-                <div class="c-panel-title">作者最近的想法</div>
+                <div class="c-panel-title">作者最近的随笔</div>
                 <div class="right-nav detail-box">
                     <%if(isEmpty(theirThoughts)){%>
-                    <p>作者暂无其他想法</p>
+                    <p>作者暂无其他随笔</p>
                     <%}else{%>
                     <ul>
                         <%for(var t in theirThoughts){%>

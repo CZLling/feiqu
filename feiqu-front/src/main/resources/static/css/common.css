@@ -248,10 +248,16 @@ body .iconfont {
 }
 .home-logo {
     position: absolute;
-    left: 15px;
-    top: 12px;
+    left: 0px;
+    top: 0px;
     color: #6e9bca;
 }
+
+/*.home-logo img{*/
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
+/*}*/
+
 .c-text-center{
     text-align: center;
 }

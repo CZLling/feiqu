@@ -55,7 +55,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
         <div class="layui-col-md8">
             <div class="c-panel">
                 <div class="art-item card detail-about">
-                    <a class="comment-dir" href="javascript:goComment()">评论走起</a>
+                    <a class="comment-dir" href="javascript:goComment()">去评论</a>
                     <span>
                         <%if(article.anonymousSwitch == 1){%>
                         <a class="fly-avatar" href="javascript:;"><img src="http://res.flyfun.site/favicon.ico"></a>
@@ -146,10 +146,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel" style="min-height: 5rem">
-                <div class="c-panel-title">类似文章</div>
+                <div class="c-panel-title">类似笔记</div>
                 <div class="right-nav detail-box">
                     <%if(isEmpty(articles)){%>
-                    <p>暂无类似文章</p>
+                    <p>暂无类似笔记</p>
                     <%}else{%>
                     <ul>
                         <%for(var ha in articles){%>

@@ -3,7 +3,7 @@
 <head>
     <%include("/common/_head.html"){}%>
     <link href="${ctxPath}/quill/quill.snow.css" rel="stylesheet">
-    <title>文章编辑 -随想</title>
+    <title>笔记编辑 -随想</title>
     <style>
         #fq-editor {
             height: 500px;
@@ -25,7 +25,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
         <form class="layui-form layui-form-pane" action="${ctxPath}/article/doEdit" method="post">
             <div class="layui-form-item">
                 <div class="layui-col-md11">
-                    编辑你的文章
+                    编辑你的笔记
                 </div>
                 <div class="layui-col-md1">
                     <button lay-submit lay-filter="articleform" class="layui-btn layui-btn-normal postBtn">保存</button>

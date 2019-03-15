@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <%include("/common/_head.html"){}%>
-    <title>文章管理 -随想</title>
+    <title>笔记管理 -随想</title>
 <style>
 </style>
 </head>
@@ -43,7 +43,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             elem: '#articleManage'
             ,url:'/article/manage/list'
             ,toolbar: true
-            ,title: '文章数据表'
+            ,title: '笔记数据表'
             ,totalRow: true
             ,cols: [[
                 {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true},
@@ -84,7 +84,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     });
                 });
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除这篇文章么', function(index){
+                layer.confirm('真的删除这篇笔记么', function(index){
                     fly.json('/article/delete?articleId='+data.id,{},function (res) {
                         layer.msg('删除成功！');
                         table.reload('articleReload', {
@@ -96,7 +96,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     layer.close(index);
                 });
             } else if(obj.event === 'recommend'){
-                layer.confirm('真的推荐这篇文章么', function(index){
+                layer.confirm('真的推荐这篇笔记么', function(index){
                     fly.json('/article/manage/recommend/'+data.id,function (res) {
                         layer.msg('推荐成功！');
                         table.reload('articleReload', {
@@ -108,7 +108,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     layer.close(index);
                 });
             }else if(obj.event === 'htmlUnescape'){
-                layer.confirm('真的反转义这篇文章的内容么', function(index){
+                layer.confirm('真的反转义这篇笔记的内容么', function(index){
                     fly.json('/article/manage/htmlUnescape/'+data.id,function (res) {
                         layer.msg('转义成功！');
                     });

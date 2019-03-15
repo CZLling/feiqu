@@ -88,12 +88,12 @@ public class ThoughtController extends BaseController {
                 redisString.set(JSON.toJSONString(thoughtWithUser),24*60*60);
             }else {
                 result.setResult(ResultEnum.THOUGHT_TOP_EXIST);
-                result.setMessage("置顶的想法已经存在,需要等待"+redisString.getTtl()/60+"分钟");
+                result.setMessage("置顶的随笔已经存在,需要等待"+redisString.getTtl()/60+"分钟");
                 return result;
             }
             CommonUtils.addOrDelUserQudouNum(user,-20);
         } catch (Exception e) {
-            logger.error("想法置顶失败",e);
+            logger.error("随笔置顶失败",e);
             result.setResult(ResultEnum.FAIL);
 
         }
@@ -123,11 +123,11 @@ public class ThoughtController extends BaseController {
             if(StringUtils.isEmpty(redisString.get())){
             }else {
                 result.setResult(ResultEnum.THOUGHT_TOP_EXIST);
-                result.setMessage("置顶的想法已经存在,需要等待"+redisString.getTtl()/60+"分钟");
+                result.setMessage("置顶的随笔已经存在,需要等待"+redisString.getTtl()/60+"分钟");
                 return result;
             }
         } catch (Exception e) {
-            logger.error("想法置顶失败",e);
+            logger.error("随笔置顶失败",e);
             result.setResult(ResultEnum.FAIL);
 
         }
@@ -139,7 +139,7 @@ public class ThoughtController extends BaseController {
     @PostMapping(value = "post")
     public Object postThoughts(Thought thought, HttpServletRequest request, HttpServletResponse response) {
         BaseResult result = new BaseResult();
-        logger.info("postThoughts:发表想法详情：{}",thought.toString());
+        logger.info("postThoughts:发表随笔详情：{}",thought.toString());
         try {
             String ip = WebUtil.getIP(request);
             FqUserCache user = webUtil.currentUser(request, response);
@@ -163,7 +163,7 @@ public class ThoughtController extends BaseController {
             }else {
                 long time = redisString.getTtl();
                 result.setResult(ResultEnum.POST_THOUGHT_FREQUENCY_OVER_LIMIT);
-                result.setMessage("发表想法频率超过限制，请过"+time+"秒再试!");
+                result.setMessage("发表随笔频率超过限制，请过"+time+"秒再试!");
                 return result;
             }
             //todo 校验图片列表
@@ -180,7 +180,7 @@ public class ThoughtController extends BaseController {
             result.setData(thought);
             CommonUtils.addActiveNum(user.getId(),ActiveNumEnum.POST_THOUGHT.getValue());
         } catch (Exception e) {
-            logger.error("发表想法失败",e);
+            logger.error("发表随笔失败",e);
             result.setResult(ResultEnum.FAIL);
         }
         return result;
@@ -222,7 +222,7 @@ public class ThoughtController extends BaseController {
                 message.setReceivedUserId(thought.getUserId());
                 message.setType(MsgEnum.OFFICIAL_MSG.getValue());
                 message.setContent("系统消息通知：<a class=\"c-fly-link\" href=\""+ CommonConstant.DOMAIN_URL+"/u/"+user.getId()+"/peopleIndex\" target=\"_blank\">"+user.getNickname()+" </a> " +
-                        "赞了你的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/thought/" + thoughtId +"\" target=\"_blank\">想法</a> "+ DateUtil.formatDateTime(new Date()));
+                        "赞了你的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/thought/" + thoughtId +"\" target=\"_blank\">随笔</a> "+ DateUtil.formatDateTime(new Date()));
                 messageService.insert(message);
             }
             result.setData(thought.getLikeCount());
@@ -249,7 +249,7 @@ public class ThoughtController extends BaseController {
             Thought thought = thoughtService.selectByPrimaryKey(thoughtId);
             if(thought == null || YesNoEnum.YES.getValue().equals(thought.getDelFlag())){
                 result.setResult(ResultEnum.FAIL);
-                result.setMessage("此想法不存在，或已经删除！");
+                result.setMessage("此随笔不存在，或已经删除！");
                 return result;
             }
             String commentContent = comment.getContent();
@@ -305,7 +305,7 @@ public class ThoughtController extends BaseController {
                             message.setReceivedUserId(aiteUser.getId());
                             message.setType(MsgEnum.OFFICIAL_MSG.getValue());
                             message.setContent("系统消息通知：<a class=\"c-fly-link\" href=\""+ CommonConstant.DOMAIN_URL+"/u/"+user.getId()+"/peopleIndex\" target=\"_blank\">"+user.getNickname()+" </a> " +
-                                    "在<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/thought/" + thoughtId +"\" target=\"_blank\">此想法（"+shortThoughtContent+"）</a>中回复了你 :"+shortCommentContent+"-"+ DateUtil.formatDateTime(now));
+                                    "在<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/thought/" + thoughtId +"\" target=\"_blank\">此随笔（"+shortThoughtContent+"）</a>中回复了你 :"+shortCommentContent+"-"+ DateUtil.formatDateTime(now));
                             messageService.insert(message);
                         }
                     }
@@ -329,7 +329,7 @@ public class ThoughtController extends BaseController {
                 message.setReceivedUserId(thought.getUserId());
                 message.setType(MsgEnum.OFFICIAL_MSG.getValue());
                 message.setContent("系统消息通知：<a class=\"c-fly-link\" href=\""+ CommonConstant.DOMAIN_URL+"/u/"+user.getId()+"/peopleIndex\" target=\"_blank\">"+user.getNickname()+" </a>" +
-                        "回复了你的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/thought/" + thoughtId + "\" target=\"_blank\">想法（"+shortThoughtContent+"）</a> :"+shortCommentContent+"-"+ DateUtil.formatDateTime(now));
+                        "回复了你的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/thought/" + thoughtId + "\" target=\"_blank\">随笔（"+shortThoughtContent+"）</a> :"+shortCommentContent+"-"+ DateUtil.formatDateTime(now));
                 messageService.insert(message);
             }
             result.setData(thought.getCommentCount());
@@ -355,7 +355,7 @@ public class ThoughtController extends BaseController {
             }else {
                 return "/404.html";
             }
-            //如果想法被删除
+            //如果随笔被删除
             if(YesNoEnum.YES.getValue().equals(thought.getDelFlag())){
                 return "/topic-deleted.html";
             }
@@ -401,7 +401,7 @@ public class ThoughtController extends BaseController {
     }
 
     /*
-    我的想法
+    我的随笔
      */
     @GetMapping(value = "/my")
     public String myThoughts(HttpServletRequest request, HttpServletResponse response,
@@ -444,7 +444,7 @@ public class ThoughtController extends BaseController {
             model.addAttribute("p",page);
             model.addAttribute("pageSize",20);
         } catch (Exception e) {
-            logger.error("thought 获取我的想法失败！",e);
+            logger.error("thought 获取我的随笔失败！",e);
         }
         return "/thought/thoughts.html";
     }

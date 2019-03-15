@@ -1,19 +1,19 @@
 <div class="c-head layui-bg-black">
     <div class="layui-container">
-        <a class="home-logo" href="${ctxPath}/"><img src="${ctxPath}/img/c-logo39.png"></a>
+        <a class="home-logo" href="${ctxPath}/"><i class="layui-icon layui-icon-release" style="font-size: 30px; color: #009E94;"></i></a>
+            <!--<img src="${ctxPath}/img/c-logo.png">-->
         <ul class="layui-nav c-nav layui-hide-xs">
             <li class="layui-nav-item"><a href="${ctxPath}/">首页</a></li>
             <%if(isLogin){ %>
-            <li class="layui-nav-item"><a href="${ctxPath}/u/${user.id}/home">我的小窝</a></li>
+            <li class="layui-nav-item"><a href="${ctxPath}/u/${user.id}/home">我的主页</a></li>
+            <li class="layui-nav-item"><a href="${ctxPath}/superGeek">学无止境</a></li>
             <%}%>
-            <li class="layui-nav-item"><a href="${ctxPath}/superGeek">知识达人</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">资源列表</a>
                 <dl class="layui-nav-child">
-                    <!--<dd><a href="${ctxPath}/superGeek">知识达人</a></dd>-->
-
-                    <dd><a href="${ctxPath}/websiteDir">网址导航</a></dd>
-                    <dd><a href="${ctxPath}/fqNews">看看新闻</a></dd>
+                    <!--<dd><a href="${ctxPath}/superGeek">学无止境</a></dd>-->
+                    <dd><a href="${ctxPath}/websiteDir">精选网址</a></dd>
+                    <dd><a href="${ctxPath}/fqNews">热门资讯</a></dd>
                     <dd><a href="${ctxPath}/fqTopic">话题广场</a></dd>
                 </dl>
             </li>
@@ -22,7 +22,7 @@
             <!--</li>-->
 
 
-            <!--<li class="layui-nav-item"><a href="${ctxPath}/websiteDir">网址导航</a></li>-->
+            <!--<li class="layui-nav-item"><a href="${ctxPath}/websiteDir">精选网址</a></li>-->
 
             <!--<li class="layui-nav-item">-->
                 <!--<a href="javascript:;">更多功能</a>-->
@@ -41,7 +41,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="${ctxPath}/u/set">基本设置</a></dd>
-                    <dd><a href="${ctxPath}/u/center">用户中心</a></dd><hr>
+                    <!--<dd><a href="${ctxPath}/u/center">用户中心</a></dd><hr>-->
                     <dd><a href="${ctxPath}/message/dialogs">我的私信</a></dd>
                     <dd><a href="${ctxPath}/u/myIndex">个人主页</a></dd>
                     <dd><a href="${ctxPath}/u/logout">退出登录</a></dd>

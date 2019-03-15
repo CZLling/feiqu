@@ -153,7 +153,7 @@ public class HotContentJob {
 
         stopwatch.stop();
         long seconds = stopwatch.elapsed(TimeUnit.SECONDS);
-        logger.info("热门文章以及通知以及热门图片更新完毕,耗时{}秒,内存信息：{}",seconds,memoryInfo);
+        logger.info("热门笔记以及通知以及热门图片更新完毕,耗时{}秒,内存信息：{}",seconds,memoryInfo);
     }
     //每3个小时更新一次
     @Scheduled(cron = "1 0 */3 * * ? ")

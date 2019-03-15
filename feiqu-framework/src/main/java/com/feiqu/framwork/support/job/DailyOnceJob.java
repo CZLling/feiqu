@@ -237,7 +237,7 @@ public class DailyOnceJob {
                 nginxLogExample.createCriteria().andCreateTimeLessThan(DateUtil.offsetMonth(new Date(),-12));//删除90天之前的记录
                 logService.deleteByExample(nginxLogExample);
             }
-            //更新7天的最热想法
+            //更新7天的最热随笔
             JedisCommands commands = JedisProviderFactory.getJedisCommands(null);
             PageHelper.startPage(1, 5 , false);
             ThoughtExample thoughtExample = new ThoughtExample();
@@ -270,7 +270,7 @@ public class DailyOnceJob {
         logger.info("nginx日志分析完毕,耗时{}秒",seconds);
     }
 
-    //每天更新文章
+    //每天更新笔记
     @Scheduled(cron = "0 0 9 * * ? ")
     public void articleGernerate(){
         Stopwatch stopwatch = Stopwatch.createStarted();
@@ -327,7 +327,7 @@ public class DailyOnceJob {
                 try {
                     articleService.insert(article);
                 } catch (Exception e) {
-                    logger.error("生成文章报错，文章详情："+article.toString(),e);
+                    logger.error("生成笔记报错，笔记详情："+article.toString(),e);
                     fileSingle.delete();
                     continue;
                 }
@@ -338,11 +338,11 @@ public class DailyOnceJob {
                 index++;
             }
         }catch (Exception e){
-            logger.error("生成文章报错",e);
+            logger.error("生成笔记报错",e);
         }
         stopwatch.stop();
         long seconds = stopwatch.elapsed(TimeUnit.SECONDS);
-        logger.info("生成文章完毕,耗时{}秒",seconds);
+        logger.info("生成笔记完毕,耗时{}秒",seconds);
     }
 
 

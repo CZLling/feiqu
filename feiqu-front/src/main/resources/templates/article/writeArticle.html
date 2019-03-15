@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>写篇文章 -随想</title>
+    <title>写篇笔记 -随想</title>
     <style>
         #fq-editor {
             height: 500px;
@@ -24,7 +24,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
         <form class="layui-form layui-form-pane" action="${ctxPath}/article/writeArticle" method="post" onsubmit="return false">
             <div class="layui-form-item">
                 <div class="layui-col-md11">
-                    请开始你的表演（写作）
+                    随想笔记 记你所想
                 </div>
             </div>
             <div class="layui-form-item">
@@ -54,7 +54,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="layui-form-item">
-                <!--<textarea name="articleContent" class="layui-textarea fly-editor" placeholder="开始你的写作吧~(暂时只支持最多45000个字符)"></textarea>-->
+                <textarea name="articleContent" class="layui-textarea fly-editor" placeholder="开始你的写作吧~(暂时只支持最多45000个字符)"></textarea>
             </div>
         </form>
         <div id="fq-editor">
@@ -131,7 +131,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             }
             data.field.articleContent = quill.container.firstChild.innerHTML;
             fly.json(action, data.field, function(res){
-                layer.msg("发表成功~文章进入审核阶段！");
+                layer.msg("发表成功~笔记进入审核阶段！");
                 setTimeout(function () {
                     location.href = "${ctxPath}/superGeek"
                 }, 1000)

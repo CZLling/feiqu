@@ -943,7 +943,7 @@ public class UserController extends BaseController {
             if(user == null){
                 return login(CommonConstant.DOMAIN_URL+request.getRequestURI(),request);
             }
-            logger.info("用户：{}登进我的小窝",user.getNickname());
+            logger.info("用户：{}登进我的主页",user.getNickname());
             ThoughtWithUser topThought = null;
             RedisString redisString = new RedisString(CommonConstant.THOUGHT_TOP_LIST);
             if(org.apache.commons.lang3.StringUtils.isNotEmpty(redisString.get())){

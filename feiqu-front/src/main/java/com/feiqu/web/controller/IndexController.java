@@ -125,7 +125,7 @@ public class IndexController extends BaseController {
         model.addAttribute("recommendArticles",recommendArticles);
         model.addAttribute("articles",articles);
         model.addAttribute("pageIndex",pageIndex);
-        model.addAttribute("pageSize",20);//文章放多点好，感觉，要不然老是需要翻页
+        model.addAttribute("pageSize",20);//笔记放多点好，感觉，要不然老是需要翻页
         model.addAttribute("count",page.getTotal());
         model.addAttribute("order",order);
         model.addAttribute("articleList", CommonConstant.HOT_ARTICLE_LIST);

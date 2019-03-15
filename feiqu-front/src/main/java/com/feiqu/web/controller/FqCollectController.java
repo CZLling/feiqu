@@ -44,7 +44,7 @@ public class FqCollectController  {
     }
 
     /**
-     * 我收藏的文章
+     * 我收藏的笔记
      * @return
      */
     @PostMapping("/find/article")
@@ -64,13 +64,13 @@ public class FqCollectController  {
             List<ArticleCollectResponse> collectResponseList =  collectService.selectWithArticleByEntity(fqCollect);
             result.setData(collectResponseList);
         } catch (Exception e) {
-            logger.error("文章的收藏查询出错",e);
+            logger.error("笔记的收藏查询出错",e);
         }
         return result;
     }
 
     /**
-     * 我收藏的想法
+     * 我收藏的随笔
      * @return
      */
     @PostMapping("/find/thought")
@@ -89,7 +89,7 @@ public class FqCollectController  {
             List<ThoughtCollectResponse> collectResponseList =  collectService.selectWithThoughtByEntity(fqCollect);
             result.setData(collectResponseList);
         } catch (Exception e) {
-            logger.error("文章的收藏查询出错",e);
+            logger.error("笔记的收藏查询出错",e);
         }
         return result;
     }
