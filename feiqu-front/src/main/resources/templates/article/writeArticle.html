@@ -8,7 +8,7 @@
             height: 500px;
         }
     </style>
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="/css/quill.snow.css" rel="stylesheet">
 </head>
 <body>
 <%
@@ -53,9 +53,9 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <textarea name="articleContent" class="layui-textarea fly-editor" placeholder="开始你的写作吧~(暂时只支持最多45000个字符)"></textarea>
-            </div>
+            <!--<div class="layui-form-item">-->
+                <!--<textarea name="articleContent" class="layui-textarea fly-editor" placeholder="开始你的写作吧~(暂时只支持最多45000个字符)"></textarea>-->
+            <!--</div>-->
         </form>
         <div id="fq-editor">
         </div>
@@ -65,7 +65,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
 <%include("/common/_footor.html"){}%>
 </body>
 <%include("/common/_scripts.html",{user:user}){}%>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="/js/quill.js"></script>
 <script>
     var fonts = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
     var quill = new Quill('#fq-editor', {
@@ -82,7 +82,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 [ 'clean' ]
             ]
         },
-        placeholder: '请开始奋笔疾书吧',
+        placeholder: '写下的今天的收获吧',
         theme: 'snow'
     });
 </script>

@@ -170,7 +170,7 @@ public class ArticleController extends BaseController {
             }
             if(article.getArticleContent().length() < 50){
                 result.setResult(ResultEnum.PARAM_ERROR);
-                result.setMessage("笔记长度不能小于50，如若请去随笔处发表");
+                result.setMessage("文本长度小于50，请去随笔处发表吧");
                 return result;
             }
             String ip = WebUtil.getIP(request);

@@ -135,7 +135,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 <li class="layui-this" lay-id="thoughts">我说的随笔</li>
                 <li lay-id="articles">我发表的笔记</li>
                 <li lay-id="follow">我的关注</li>
-                <li lay-id="theme">我的帖子</li>
+                <!--<li lay-id="theme">我的帖子</li>-->
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -256,35 +256,35 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             location.hash = 'user-center-tab='+ this.getAttribute('lay-id');
         });
 
-        var layid = location.hash.replace(/^#user-center-tab=/, '');
-        element.tabChange('user-center-tab', layid);
-        function getThemes(index) {
-            var html = ''
-            $.ajax({
-                url:'${ctxPath}/knowfriend/theme/list/${user.id}',
-                method:'get',
-                dataType:'json',
-                success:function (result) {
-                    if(result && result.code == '0000'){
-                        $.each(result.data,function (i,obj) {
-                            html += '<li>' +
-                                '<a href="/u/'+obj.userId+'/peopleIndex" class="fly-avatar">' +
-                                '<img src="'+obj.icon+'">' +
-                                '</a>' +
-                                '<div class="thought-content"><a class="c-fly-link" href="${ctxPath}/knowfriend/themeDetail/'+obj.id+'">'+obj.title+
-                                '</a></div>' +
-                                '<div class="c-list-info">' +obj.createTime+
-                                '</div>' +
-                                '</li>'
-                        })
-                        html = '<ul class="c-list">'+html+'</ul>'
-                        $('.layui-tab-item:nth-child('+parseInt(++index)+')').html(html)
-                    }else {
-                        layer.msg(result.message||'获取帖子失败')
-                    }
-                }
-            })
-        }
+        // var layid = location.hash.replace(/^#user-center-tab=/, '');
+        // element.tabChange('user-center-tab', layid);
+        // function getThemes(index) {
+        //     var html = ''
+        //     $.ajax({
+        //         url:'${ctxPath}/knowfriend/theme/list/${user.id}',
+        //         method:'get',
+        //         dataType:'json',
+        //         success:function (result) {
+        //             if(result && result.code == '0000'){
+        //                 $.each(result.data,function (i,obj) {
+        //                     html += '<li>' +
+        //                         '<a href="/u/'+obj.userId+'/peopleIndex" class="fly-avatar">' +
+        //                         '<img src="'+obj.icon+'">' +
+        //                         '</a>' +
+        //                         '<div class="thought-content"><a class="c-fly-link" href="${ctxPath}/knowfriend/themeDetail/'+obj.id+'">'+obj.title+
+        //                         '</a></div>' +
+        //                         '<div class="c-list-info">' +obj.createTime+
+        //                         '</div>' +
+        //                         '</li>'
+        //                 })
+        //                 html = '<ul class="c-list">'+html+'</ul>'
+        //                 $('.layui-tab-item:nth-child('+parseInt(++index)+')').html(html)
+        //             }else {
+        //                 layer.msg(result.message||'获取帖子失败')
+        //             }
+        //         }
+        //     })
+        // }
     });
 </script>
 </html>
