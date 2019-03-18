@@ -18,7 +18,7 @@ layui.define(['fly','table','element','laypage'],function (exports) {
                 elem: '#articleCollectioncard'
                 ,data: res.data
                 ,cols: [[
-                    {field: 'articleTitle', title: '文章标题', minWidth: 300, templet: '<div><a href="/article/{{d.topicId}}" target="_blank" class="layui-table-link">{{d.articleTitle}}</a></div>'
+                    {field: 'articleTitle', title: '笔记标题', minWidth: 300, templet: '<div><a href="/article/{{d.topicId}}" target="_blank" class="layui-table-link">{{d.articleTitle}}</a></div>'
                     }
                     ,{field: 'collectTime', title: '收藏时间', width: 200, align: 'center', templet: '<div>{{d.collectTime}}</div>'
                     }
@@ -34,7 +34,7 @@ layui.define(['fly','table','element','laypage'],function (exports) {
                 elem: '#thoughtCollectioncard'
                 ,data: res.data
                 ,cols: [[
-                    {field: 'content', title: '想法详情', minWidth: 300, templet: '<div><a href="/thought/{{d.topicId}}" target="_blank" class="layui-table-link">{{d.content}}</a></div>'
+                    {field: 'content', title: '随笔详情', minWidth: 300, templet: '<div><a href="/thought/{{d.topicId}}" target="_blank" class="layui-table-link">{{d.content}}</a></div>'
                     }
                     ,{field: 'collectTime', title: '收藏时间', width: 200, align: 'center', templet: '<div>{{d.collectTime}}</div>'
                     }

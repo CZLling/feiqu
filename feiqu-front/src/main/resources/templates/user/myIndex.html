@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <%include("/common/_head.html"){}%>
-    <title>我的个人主页 -飞趣</title>
+    <title>我的个人主页 -随想</title>
 <style>
     .userinfo {
         position: relative;
@@ -132,10 +132,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
     <div class="user-act c-panel">
         <div class="layui-tab layui-tab-card" lay-filter="user-center-tab">
             <ul class="layui-tab-title">
-                <li class="layui-this" lay-id="thoughts">我说的想法</li>
-                <li lay-id="articles">我发表的文章</li>
+                <li class="layui-this" lay-id="thoughts">我说的随笔</li>
+                <li lay-id="articles">我发表的笔记</li>
                 <li lay-id="follow">我的关注</li>
-                <li lay-id="theme">我的帖子</li>
+                <!--<li lay-id="theme">我的帖子</li>-->
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -171,7 +171,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
 <%include("/common/_scripts.html"){}%>
 <script>
     function deleteThought(tid,me) {
-        layer.confirm('确认删除这个想法吗?', {icon: 3, title:'提示'}, function(index){
+        layer.confirm('确认删除这个随笔吗?', {icon: 3, title:'提示'}, function(index){
             $.ajax({
                 url:'${ctxPath}/thought/delete?thoughtId='+tid,
                 method:'post',
@@ -191,7 +191,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
     }
 
     function deleteArticle(aid,me) {
-        layer.confirm('确认删除这篇文章?', {icon: 3, title:'提示'}, function(index){
+        layer.confirm('确认删除这篇笔记?', {icon: 3, title:'提示'}, function(index){
             $.ajax({
                 url:'${ctxPath}/article/delete?articleId='+aid,
                 method:'get',
@@ -256,35 +256,35 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             location.hash = 'user-center-tab='+ this.getAttribute('lay-id');
         });
 
-        var layid = location.hash.replace(/^#user-center-tab=/, '');
-        element.tabChange('user-center-tab', layid);
-        function getThemes(index) {
-            var html = ''
-            $.ajax({
-                url:'${ctxPath}/knowfriend/theme/list/${user.id}',
-                method:'get',
-                dataType:'json',
-                success:function (result) {
-                    if(result && result.code == '0000'){
-                        $.each(result.data,function (i,obj) {
-                            html += '<li>' +
-                                '<a href="/u/'+obj.userId+'/peopleIndex" class="fly-avatar">' +
-                                '<img src="'+obj.icon+'">' +
-                                '</a>' +
-                                '<div class="thought-content"><a class="c-fly-link" href="${ctxPath}/knowfriend/themeDetail/'+obj.id+'">'+obj.title+
-                                '</a></div>' +
-                                '<div class="c-list-info">' +obj.createTime+
-                                '</div>' +
-                                '</li>'
-                        })
-                        html = '<ul class="c-list">'+html+'</ul>'
-                        $('.layui-tab-item:nth-child('+parseInt(++index)+')').html(html)
-                    }else {
-                        layer.msg(result.message||'获取帖子失败')
-                    }
-                }
-            })
-        }
+        // var layid = location.hash.replace(/^#user-center-tab=/, '');
+        // element.tabChange('user-center-tab', layid);
+        // function getThemes(index) {
+        //     var html = ''
+        //     $.ajax({
+        //         url:'${ctxPath}/knowfriend/theme/list/${user.id}',
+        //         method:'get',
+        //         dataType:'json',
+        //         success:function (result) {
+        //             if(result && result.code == '0000'){
+        //                 $.each(result.data,function (i,obj) {
+        //                     html += '<li>' +
+        //                         '<a href="/u/'+obj.userId+'/peopleIndex" class="fly-avatar">' +
+        //                         '<img src="'+obj.icon+'">' +
+        //                         '</a>' +
+        //                         '<div class="thought-content"><a class="c-fly-link" href="${ctxPath}/knowfriend/themeDetail/'+obj.id+'">'+obj.title+
+        //                         '</a></div>' +
+        //                         '<div class="c-list-info">' +obj.createTime+
+        //                         '</div>' +
+        //                         '</li>'
+        //                 })
+        //                 html = '<ul class="c-list">'+html+'</ul>'
+        //                 $('.layui-tab-item:nth-child('+parseInt(++index)+')').html(html)
+        //             }else {
+        //                 layer.msg(result.message||'获取帖子失败')
+        //             }
+        //         }
+        //     })
+        // }
     });
 </script>
 </html>

@@ -1,13 +1,9 @@
 package com.feiqu.framwork.function;
 
-import com.feiqu.common.enums.YesNoEnum;
-import com.feiqu.common.utils.SpringUtils;
 import com.feiqu.framwork.support.cache.CacheManager;
 import com.feiqu.framwork.util.WebUtil;
 import com.feiqu.system.model.FqBackgroundImg;
-import com.feiqu.system.model.FqBackgroundImgExample;
 import com.feiqu.system.pojo.cache.FqUserCache;
-import com.feiqu.system.service.FqBackgroundImgService;
 import com.jeesuite.cache.redis.JedisProviderFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +58,10 @@ public class Functions {
             String key = CacheManager.getUserBackImgKey(uid);
             String picUrl = commands.get(key);
             if(StringUtils.isEmpty(picUrl)){
-                FqBackgroundImgService fqBackgroundImgService = SpringUtils.getBean("fqBackgroundImgServiceImpl");
-                FqBackgroundImgExample example = new FqBackgroundImgExample();
-                example.createCriteria().andUserIdEqualTo(uid).andDelFlagEqualTo(YesNoEnum.NO.getValue());
-                FqBackgroundImg fqBackgroundImg = fqBackgroundImgService.selectFirstByExample(example);
+//                FqBackgroundImgService fqBackgroundImgService = SpringUtils.getBean("fqBackgroundImgServiceImpl");
+//                FqBackgroundImgExample example = new FqBackgroundImgExample();
+//                example.createCriteria().andUserIdEqualTo(uid).andDelFlagEqualTo(YesNoEnum.NO.getValue());
+                FqBackgroundImg fqBackgroundImg = null;
                 if(fqBackgroundImg != null){
                     picUrl = fqBackgroundImg.getImgUrl();
                 }else {

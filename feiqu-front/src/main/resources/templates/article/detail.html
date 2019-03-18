@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>${article.articleTitle} -${oUser.nickname} -飞趣</title>
+    <title>${article.articleTitle} -${oUser.nickname} -随想</title>
     <meta name="description" content="${article.articleTitle}">
     <style>
         .art-item{position:relative;padding:16px 0}
@@ -55,7 +55,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
         <div class="layui-col-md8">
             <div class="c-panel">
                 <div class="art-item card detail-about">
-                    <a class="comment-dir" href="javascript:goComment()">评论走起</a>
+                    <a class="comment-dir" href="javascript:goComment()">去评论</a>
                     <span>
                         <%if(article.anonymousSwitch == 1){%>
                         <a class="fly-avatar" href="javascript:;"><img src="http://res.flyfun.site/favicon.ico"></a>
@@ -139,17 +139,17 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     <p>匿名用户不提供任何信息</p>
                     <%}else{%>
                     <p>来自${oUser.city!}</p>
-                    <p>${printTime(oUser.createTime)}加入飞趣社区</p>
+                    <p>${printTime(oUser.createTime)}加入随想笔记</p>
                     <p>${decode(oUser.sex,1,"是个男孩纸哦",2,"是个女孩纸哦","作者未设置性别哦")}</p>
                     <p>学校是${oUser.school!"未设置"}</p>
                     <%}%>
                 </div>
             </div>
             <div class="c-panel" style="min-height: 5rem">
-                <div class="c-panel-title">类似文章</div>
+                <div class="c-panel-title">类似笔记</div>
                 <div class="right-nav detail-box">
                     <%if(isEmpty(articles)){%>
-                    <p>暂无类似文章</p>
+                    <p>暂无类似笔记</p>
                     <%}else{%>
                     <ul>
                         <%for(var ha in articles){%>

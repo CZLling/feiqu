@@ -99,7 +99,7 @@ layui.define(['fly','flow','laypage'], function(exports){
         }
         var commentBlock = '<div class="c-reply-block"><div class="reply-input">'+
                 '<span type="face" title="插入表情"><i class="iconfont icon-yxj-expression"></i></span>'+
-            '<input id="commentInputId" type="text" placeholder="评论下这个想法吧~" class="layui-input">'+
+            '<input id="commentInputId" type="text" placeholder="评论下这个随笔吧~" class="layui-input">'+
             ' <button id="commentBtn" class="layui-btn layui-btn-warm">评论</button></div></div>'
         var reply = $(this).parent().after(commentBlock);
         var commentInput = $('#commentInputId');
@@ -173,7 +173,8 @@ layui.define(['fly','flow','laypage'], function(exports){
 
     var html = ['<div class="layui-unselect fly-edit">'
         ,'<span type="face" title="插入表情"><i class="layui-icon">&#xe6af;</i>表情</span>'
-        ,'<span type="picture" title="插入图片"><i class="layui-icon">&#xe64a;</i>图片</span>'].join('');
+        // ,'<span type="picture" title="插入图片"><i class="layui-icon">&#xe64a;</i>图片</span>'
+        ].join('');
     $('.kind').html(html);
     var thoughtPics = [];
     var uploadedPicNum = 0;
@@ -237,11 +238,11 @@ layui.define(['fly','flow','laypage'], function(exports){
                 layui.focusInsert(editor[0], 'face' + title);
             });
             event.stopPropagation()
-        }else if(type === 'picture'){
-            var $layerPic = $('.layer-pic-list');
-            if($layerPic.hasClass('layui-hide')){
-                $layerPic.removeClass('layui-hide');
-            }else $layerPic.addClass('layui-hide');
+        // }else if(type === 'picture'){
+        //     var $layerPic = $('.layer-pic-list');
+        //     if($layerPic.hasClass('layui-hide')){
+        //         $layerPic.removeClass('layui-hide');
+        //     }else $layerPic.addClass('layui-hide');
         }else if(type === 'video'){
             layer.open({
                 type: 1

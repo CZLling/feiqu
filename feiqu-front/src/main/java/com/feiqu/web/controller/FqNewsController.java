@@ -68,7 +68,7 @@ public class FqNewsController extends BaseController {
         model.addAttribute("fqNews",fqNews);
         PageInfo page = new PageInfo(fqNews);
         model.addAttribute("pageIndex",pageIndex);
-        model.addAttribute("pageSize",20);//文章放多点好，感觉，要不然老是需要翻页
+        model.addAttribute("pageSize",20);//笔记放多点好，感觉，要不然老是需要翻页
         model.addAttribute("count",page.getTotal());
         return "/news/index.html";
     }

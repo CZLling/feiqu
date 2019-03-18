@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <%include("/common/_head.html"){}%>
-<title>知识达人 分享你的技术与知识吧 -飞趣</title>
+<title>学无止境 分享你的技术与知识 -随想</title>
 <style>
     .art-item {
         position: relative;
@@ -124,11 +124,11 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
 <div class="layui-container topToFix">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md4">
-            <a class="layui-btn" href="${ctxPath}/article/goWriteArticle">写一篇文章</a>
+            <a class="layui-btn" href="${ctxPath}/article/goWriteArticle">写一篇笔记</a>
         </div>
         <div class="layui-col-md8">
             <div class="a-search">
-                <input id="kewordInput" class="layui-input S-input" name="keyword" placeholder="搜索你想看的文章">
+                <input id="kewordInput" class="layui-input S-input" name="keyword" placeholder="搜索你想看的笔记">
                 <a class="searchSubmit" href="javascript:void(0)"><i class="layui-icon search-icon">&#xe615;</i></a>
             </div>
         </div>
@@ -180,10 +180,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
         </div>
         <div class="layui-col-md4">
             <div class="c-panel" style="min-height: 5rem">
-                <div class="c-panel-title">推荐文章</div>
+                <div class="c-panel-title">推荐笔记</div>
                 <div class="hot-article">
                     <%if(isEmpty(recommendArticles)){%>
-                    <p>暂无推荐文章</p>
+                    <p>暂无推荐笔记</p>
                     <%}else{%>
                     <ul>
                         <%for(var ha in recommendArticles){%>
@@ -194,10 +194,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel" style="min-height: 5rem">
-                <div class="c-panel-title">月热门文章(每半小时更新一次)</div>
+                <div class="c-panel-title">月热门笔记(每半小时更新一次)</div>
                 <div class="hot-article">
                     <%if(isEmpty(articleList)){%>
-                    <p>暂无热门文章</p>
+                    <p>暂无热门笔记</p>
                     <%}else{%>
                     <ul>
                         <%for(var ha in articleList){%>
@@ -229,9 +229,9 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             ,fly=layui.fly;
         laypage.render({
             elem: 'pagesplit'
-            ,curr:${pageIndex}
+            ,curr: ${pageIndex}
             ,count: ${count}
-            , limit:${pageSize}
+            , limit: ${pageSize}
             ,layout: ['count', 'prev', 'page', 'next', 'skip']
             ,jump: function(obj,first){
                 if(!first){

@@ -3,13 +3,10 @@ package com.feiqu.framwork.constant;
 import cn.hutool.core.date.DateUtil;
 import com.feiqu.system.model.Article;
 import com.feiqu.system.model.FqArea;
-import com.feiqu.system.model.FqFriendLink;
 import com.feiqu.system.model.FqNotice;
-import com.feiqu.system.pojo.response.BeautyUserResponse;
 import com.feiqu.system.pojo.response.KeyValue;
 import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
-import com.feiqu.system.pojo.simple.BeautySim;
 import com.feiqu.system.pojo.simple.FqUserSim;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +25,6 @@ public class CommonConstant {
     public static String USER_ID_COOKIE = "cwd33";
     public static String USER_COOKIE_SECRET = "cwd11";
     public static String FORGET_PASSWORD_SECRET = "cwd22";
-//    public static String DOMAIN_URL = "http://www.flyfun.site/";
 
     public static String DOMAIN_URL = "";
     public static Integer MAX_UPLOAD_SIZE = null;
@@ -47,12 +43,11 @@ public class CommonConstant {
     public static List<FqNotice> FQ_NOTICE_LIST= null;
     public static List<Article> HOT_ARTICLE_LIST= null;
     public static List<FqArea> AREA_LIST= null;
-    public static List<BeautyUserResponse> HOT_BEAUTY_LIST = null;
+//    public static List<BeautyUserResponse> HOT_BEAUTY_LIST = null;
     public static List<ThoughtWithUser> HOT_THOUGHT_LIST = null;
     public static List<ThoughtWithUser> NEW_THOUGHT_LIST = null;
 
 
-    public static List<FqFriendLink> FRIEND_LINK_LIST = null;
 
     public static String ALIOSS_URL_PREFIX = null;
     public static String ALIYUN_OSS_BUCKET_NAME = null;
@@ -78,7 +73,7 @@ public class CommonConstant {
     public static List<FqUserSim> NEW_SIMPLE_USERS = null;
 
     public static String bgImgUrl = null;
-    //飞趣社区总人数
+    //随想笔记总人数
     public static int FQ_USER_TOTAL_COUNT = 0;
 
     public static int ALIYUN_OSS_EXPIRE = 300;
@@ -96,7 +91,7 @@ public class CommonConstant {
     public static String GENERAL_CUSTOM_ERROR_CODE = "errorMsg";//
 
 
-    public static List<BeautySim> BEAUTY_BANNERS = Lists.newArrayList();
+    public static List<Object> BEAUTY_BANNERS = Lists.newArrayList();
     public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
 
     //网址点击事件统计

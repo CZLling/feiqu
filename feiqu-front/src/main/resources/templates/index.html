@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>飞趣社区 -让生活更有趣</title>
+    <title>随想笔记 -随时记录你所想</title>
     <style>
         .c-list-info{position:relative;overflow:hidden;font-size:13px;line-height:2;color:#999}
         .detail-box{line-height:26px}
@@ -46,7 +46,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             </div>
             <div class="c-panel">
                 <div class="c-panel-title">
-                    <span class="title-first">最新的5个想法(每半个小时更新一次)</span>
+                    <span class="title-first">最新的5个随笔(每半个小时更新一次)</span>
                 </div>
                 <ul class="c-list2">
                     <%if(isNotEmpty(newThoughtList)){%>
@@ -84,7 +84,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             </div>
             <div class="c-panel">
                 <div class="c-panel-title">
-                    <span class="title-first">评论最多的5个想法</span>
+                    <span class="title-first">评论最多的5个随笔</span>
                 </div>
                 <ul class="c-list2" id="thoughtList">
                     <%if(isNotEmpty(thoughtList)){%>
@@ -119,26 +119,6 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     <%}%>
                     <%}%>
                 </ul>
-            </div>
-            <div class="c-panel">
-                <div class="c-panel-title">热门的5张图片</div>
-                <div class="c-panel-body">
-                    <ul class="c-list2">
-                        <%for(var be in beautyList!){%>
-                        <li>
-                            <div class="detail-about fly-detail-user">
-                                <a href="${ctxPath}/u/${be.uploadUserId}/peopleIndex" class="fly-avatar"><img src="${be.icon}"></a>
-                                <a href="${ctxPath}/u/${be.uploadUserId}/peopleIndex" class="c-fly-link"><cite>${be.nickname}</cite></a>
-                                <span class="c-list-num">上传于${be.createTime,'yyyy-MM-dd'} &nbsp;点赞数：${be.likeCount!0}</span>
-                                <h2>${be.title!}</h2>
-                            </div>
-                            <div class="thought-body">
-                            <a href="javascript:;"><img lay-src="${be.imgUrl}"/></a>
-                            </div>
-                        </li>
-                        <%}%>
-                    </ul>
-                </div>
             </div>
         </div>
         <div class="layui-col-md4 ">
@@ -176,17 +156,6 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel">
-                <div class="c-panel-body">
-                    <div class="layui-carousel" id="fq-topline">
-                        <div carousel-item>
-                            <%for(var be in beautySims){%>
-                            <div><a href="${be.href!'#'}"><img alt="${be.title!}" src="${be.imgUrl!}"></a></div>
-                            <%}%>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="c-panel">
                 <div class="detail-box fq-text-center" id="fq-date">
                 </div>
             </div>
@@ -205,10 +174,10 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel">
-                <div class="c-panel-title">热门文章(每半小时更新一次)</div>
+                <div class="c-panel-title">热门笔记(每半小时更新一次)</div>
                 <div class="hot detail-box">
                     <%if(isEmpty(articleList)){%>
-                    <p>暂无热门文章</p>
+                    <p>暂无热门笔记</p>
                     <%}else{%>
                     <ul>
                         <%for(var ha in articleList){%>
@@ -218,19 +187,18 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     <%}%>
                 </div>
             </div>
-            <div class="c-panel">
-                <div class="c-panel-title">友情链接</div>
-                <div class="detail-box word-deal">
-                    <ul>
-                        <%if(isNotEmpty(friendLinkList)){%>
-                        <%for(var f in friendLinkList){%>
-                        <li><a target="_blank" href="${f.linkUrl}">${f.linkName}</a></li>
-                        <%}%>
-                        <%}%>
-                    </ul>
-                    <p>官方交流群:&nbsp;<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=ca03296d1e274d6333a6c77d0b8fe5128ff7f650c4be98a88834d1506fa1f9b1"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="飞趣社区官方交流群" title="飞趣社区官方交流群"></a></p>
-                </div>
-            </div>
+            <!--<div class="c-panel">-->
+                <!--<div class="c-panel-title">友情链接</div>-->
+                <!--<div class="detail-box word-deal">-->
+                    <!--<ul>-->
+                        <!--<%if(isNotEmpty(friendLinkList)){%>-->
+                        <!--<%for(var f in friendLinkList){%>-->
+                        <!--<li><a target="_blank" href="${f.linkUrl}">${f.linkName}</a></li>-->
+                        <!--<%}%>-->
+                        <!--<%}%>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

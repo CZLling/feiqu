@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>交流与吐槽 -飞趣</title>
+    <title>交流与吐槽 -随想</title>
     <style type="text/css">
         .fq-rich-poster-container {
             margin: 0 auto;
@@ -100,7 +100,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
 
                 <div class="c-panel">
                     <ul class="c-list">
-                        <%for(var j in jobTalkList){%>
+                        <%for(var j in ){%>
                         <li><div class="reply-block"><span title="回复" class="comment-num">${j.commentCount!0}</span></div>
                             <div class="up-block">
                                 <h2><a title="${j.title}" class="title-href" href="${ctxPath}/job/detail/${j.id}"> ${j.title}</a></h2>

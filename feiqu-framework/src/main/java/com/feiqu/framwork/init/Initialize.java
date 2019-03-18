@@ -5,18 +5,20 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.setting.dialect.Props;
 import com.alibaba.fastjson.JSON;
 import com.feiqu.common.config.Global;
-import com.feiqu.common.enums.GirlCategoryEnum;
 import com.feiqu.common.enums.YesNoEnum;
 import com.feiqu.common.utils.SpringUtils;
 import com.feiqu.framwork.constant.CommonConstant;
 import com.feiqu.system.base.BaseInterface;
 import com.feiqu.system.mapper.FqAreaMapper;
 import com.feiqu.system.model.*;
-import com.feiqu.system.pojo.response.*;
-import com.feiqu.system.pojo.simple.BeautySim;
+import com.feiqu.system.pojo.response.SimThoughtDTO;
+import com.feiqu.system.pojo.response.ThoughtWithUser;
+import com.feiqu.system.pojo.response.UserActiveNumResponse;
 import com.feiqu.system.pojo.simple.FqUserSim;
-import com.feiqu.system.service.*;
-import com.feiqu.system.service.impl.FqBackgroundImgServiceImpl;
+import com.feiqu.system.service.ArticleService;
+import com.feiqu.system.service.FqNoticeService;
+import com.feiqu.system.service.FqUserService;
+import com.feiqu.system.service.ThoughtService;
 import com.feiqu.system.service.impl.FqNoticeServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
@@ -30,6 +32,8 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisCommands;
 
 import java.util.*;
+
+//import com.feiqu.system.service.impl.FqBackgroundImgServiceImpl;
 
 @Component
 public class Initialize implements BaseInterface {
@@ -110,13 +114,7 @@ public class Initialize implements BaseInterface {
 			CommonConstant.HOT_ARTICLE_LIST = articleService.selectByExample(articleExample);
 
 			PageHelper.startPage(0,5,false);
-			SuperBeautyService superBeautyService = (SuperBeautyService) SpringUtils.getBean("superBeautyServiceImpl");
-			SuperBeautyExample beautyExample = new SuperBeautyExample();
-			beautyExample.setOrderByClause("like_count desc");
-			List<BeautyUserResponse> beauties = superBeautyService.selectDetailByExample(beautyExample);
-			if(CollectionUtil.isNotEmpty(beauties)){
-                CommonConstant.HOT_BEAUTY_LIST = beauties;
-            }
+
 
 			FqAreaMapper areaMapper = SpringUtils.getBean(FqAreaMapper.class);
 			CommonConstant.AREA_LIST = areaMapper.selectByExample(new FqAreaExample());
@@ -137,11 +135,6 @@ public class Initialize implements BaseInterface {
 			userExample.clear();
 			CommonConstant.FQ_USER_TOTAL_COUNT = fqUserService.countByExample(userExample);
 
-			FqFriendLinkService fqFriendLinkService = SpringUtils.getBean("fqFriendLinkServiceImpl");
-			List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
-			CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
-
-
 /*CommonConstant.aliossFsProvider = new AliyunossProvider(props.getStr("fs.group3.endpoint"),
 				props.getStr("fs.group3.groupName"), props.getStr("fs.group3.accessKey"), props.getStr("fs.group3.secretKey"));
 			CommonConstant.ALIOSS_URL_PREFIX = props.getStr("fs.group3.urlprefix");
@@ -150,21 +143,19 @@ public class Initialize implements BaseInterface {
 			CommonConstant.ALIYUN_OSS_ENDPOINT = props.getStr("fs.group3.endpoint");*/
 
 
-			FqBackgroundImgService fqBackgroundImgService = SpringUtils.getBean(FqBackgroundImgServiceImpl.class);
-			FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
-			backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
-			FqBackgroundImg fqBackgroundImg = fqBackgroundImgService.selectFirstByExample(backgroundImgExample);
+//			FqBackgroundImgService fqBackgroundImgService = SpringUtils.getBean(FqBackgroundImgServiceImpl.class);
+//			FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
+//			backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
+			FqBackgroundImg fqBackgroundImg = null;
 
 			CommonConstant.bgImgUrl = fqBackgroundImg == null?"https://img.t.sinajs.cn/t6/skin/skinvip805/images/body_bg.jpg?id=1410943047113":fqBackgroundImg.getImgUrl();
 
-			for(GirlCategoryEnum categoryEnum : GirlCategoryEnum.values()){
-                CommonConstant.CATEGORIES.add(new KeyValue(categoryEnum.getCode(),categoryEnum.getDesc()));
-            }
 
-			String banners = commands.get(CommonConstant.BEAUTY_BANNERS_REDIS);
-			if(StringUtils.isNotEmpty(banners)){
-				CommonConstant.BEAUTY_BANNERS = JSON.parseArray(banners, BeautySim.class);
-			}
+
+//			String banners = commands.get(CommonConstant.BEAUTY_BANNERS_REDIS);
+//			if(StringUtils.isNotEmpty(banners)){
+//				CommonConstant.BEAUTY_BANNERS = JSON.parseArray(banners, BeautySim.class);
+//			}
 
 			int month = DateUtil.thisMonth()+1;
 			Set<String> userIds =commands.zrevrange(CommonConstant.FQ_ACTIVE_USER_SORT+month,0,4);
@@ -198,7 +189,7 @@ public class Initialize implements BaseInterface {
 			JedisProviderFactory.getJedisProvider(null).release();
 		}
 
-		_log.info(">>>>>飞趣社区 系统初始化完成！<<<<<<");
+		_log.info(">>>>>随想笔记 系统初始化完成！<<<<<<");
 	}
 
 }

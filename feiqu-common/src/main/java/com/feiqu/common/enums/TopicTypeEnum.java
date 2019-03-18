@@ -4,8 +4,8 @@ package com.feiqu.common.enums;
  * Created by Administrator on 2017/10/19.
  */
 public enum TopicTypeEnum {
-    THOUGHT_TYPE("想法类型",1),
-    ARTICLE_TYPE("文章类型",2),
+    THOUGHT_TYPE("随笔类型",1),
+    ARTICLE_TYPE("笔记类型",2),
     COMMENT_TYPE("评论类型",3),
     JOB_TYPE("工作类型",4),
     NOTICE_TYPE("通知类型",5),

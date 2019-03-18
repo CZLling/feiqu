@@ -25,6 +25,6 @@ public class FeiQuApplication
 //        springApplication.addListeners(new FeiquListener());
 //        SpringApplication.run(FeiQuApplication.class, args);
         springApplication.run(args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  飞趣社区启动成功   ლ(´ڡ`ლ)ﾞ");
+        System.out.println("(♥◠‿◠)ﾉﾞ  随想笔记启动成功   ლ(´ڡ`ლ)ﾞ");
     }
 }

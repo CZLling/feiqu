@@ -50,7 +50,7 @@ public class CommentController extends BaseController {
     private CMessageService messageService;
 
     /*
-   我的想法
+   我的随笔
     */
     @GetMapping(value = "/my")
     public String myThoughtsPage(HttpServletRequest request, HttpServletResponse response){

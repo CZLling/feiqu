@@ -9,7 +9,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.alibaba.fastjson.JSON;
-import com.feiqu.common.enums.GirlCategoryEnum;
 import com.feiqu.common.enums.UserStatusEnum;
 import com.feiqu.common.enums.YesNoEnum;
 import com.feiqu.framwork.constant.CommonConstant;
@@ -47,14 +46,12 @@ public class DailyOnceJob {
     private NginxLogService logService;
     @Resource
     private FqUserService fqUserService;
-    @Resource
-    private FqFriendLinkService fqFriendLinkService;
-    @Resource
-    private FqBackgroundImgService fqBackgroundImgService;
-    @Resource
-    private FqShortVideoService fqShortVideoService;
-    @Resource
-    private SuperBeautyService superBeautyService;
+//    @Resource
+//    private FqFriendLinkService fqFriendLinkService;
+//    @Resource
+//    private FqBackgroundImgService fqBackgroundImgService;
+//    @Resource
+//    private SuperBeautyService superBeautyService;
     @Resource
     private ThoughtService thoughtService;
     @Resource
@@ -240,7 +237,7 @@ public class DailyOnceJob {
                 nginxLogExample.createCriteria().andCreateTimeLessThan(DateUtil.offsetMonth(new Date(),-12));//删除90天之前的记录
                 logService.deleteByExample(nginxLogExample);
             }
-            //更新7天的最热想法
+            //更新7天的最热随笔
             JedisCommands commands = JedisProviderFactory.getJedisCommands(null);
             PageHelper.startPage(1, 5 , false);
             ThoughtExample thoughtExample = new ThoughtExample();
@@ -273,7 +270,7 @@ public class DailyOnceJob {
         logger.info("nginx日志分析完毕,耗时{}秒",seconds);
     }
 
-    //每天更新文章
+    //每天更新笔记
     @Scheduled(cron = "0 0 9 * * ? ")
     public void articleGernerate(){
         Stopwatch stopwatch = Stopwatch.createStarted();
@@ -330,7 +327,7 @@ public class DailyOnceJob {
                 try {
                     articleService.insert(article);
                 } catch (Exception e) {
-                    logger.error("生成文章报错，文章详情："+article.toString(),e);
+                    logger.error("生成笔记报错，笔记详情："+article.toString(),e);
                     fileSingle.delete();
                     continue;
                 }
@@ -341,30 +338,13 @@ public class DailyOnceJob {
                 index++;
             }
         }catch (Exception e){
-            logger.error("生成文章报错",e);
+            logger.error("生成笔记报错",e);
         }
         stopwatch.stop();
         long seconds = stopwatch.elapsed(TimeUnit.SECONDS);
-        logger.info("生成文章完毕,耗时{}秒",seconds);
+        logger.info("生成笔记完毕,耗时{}秒",seconds);
     }
 
-    //短视频删除 暂时不删除
-/* @Scheduled(cron = "1 0 0 * * ? ")
-    public void delShortVideos(){
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        FqShortVideoExample fqShortVideoExample = new FqShortVideoExample();
-        fqShortVideoExample.createCriteria().andCreateTimeLessThan(DateUtil.offsetDay(new Date(),-31));//删除31天之前的记录
-        List<FqShortVideo> shortVideos = fqShortVideoService.selectByExample(fqShortVideoExample);
-        if(CollectionUtil.isNotEmpty(shortVideos)){
-            shortVideos.forEach(shortVideo->{
-                shortVideo.setDelFlag(YesNoEnum.YES.getValue());
-                fqShortVideoService.updateByPrimaryKey(shortVideo);
-            });
-        }
-        stopwatch.stop();
-        long seconds = stopwatch.elapsed(TimeUnit.SECONDS);
-        logger.info("31天前的短视频删除完毕,耗时{}秒",seconds);
-    }*/
 
 
     //更新昨天的新用户 以及更新下友情链接 以及更新背景图片 插入图片 （如果修改了的话 数据库）
@@ -391,12 +371,12 @@ public class DailyOnceJob {
             userExample.clear();
             CommonConstant.FQ_USER_TOTAL_COUNT = fqUserService.countByExample(userExample);
 
-            List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
-            CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
+//            List<FqFriendLink> fqFriendLinks = fqFriendLinkService.selectByExample(new FqFriendLinkExample());
+//            CommonConstant.FRIEND_LINK_LIST = fqFriendLinks;
 
-            FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
-            backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
-            FqBackgroundImg fqBackgroundImg = fqBackgroundImgService.selectFirstByExample(backgroundImgExample);
+//            FqBackgroundImgExample backgroundImgExample = new FqBackgroundImgExample();
+//            backgroundImgExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
+            FqBackgroundImg fqBackgroundImg = null;
             CommonConstant.bgImgUrl = fqBackgroundImg == null?"https://img.t.sinajs.cn/t6/skin/skinvip805/images/body_bg.jpg?id=1410943047113":fqBackgroundImg.getImgUrl();
 
 
@@ -449,18 +429,6 @@ public class DailyOnceJob {
                                 continue;
                             }
                             title = StrUtil.str(title,Charset.forName("utf-8"));
-                            SuperBeauty superBeauty = new SuperBeauty();
-                            superBeauty.setImgUrl(imgUrl);
-                            superBeauty.setTitle(title);
-                            superBeauty.setLikeCount(0);
-                            superBeauty.setCreateTime(now);
-                            superBeauty.setUploadUserId(22);
-                            superBeauty.setCategory(GirlCategoryEnum.NV_SHENG.getCode());
-                            superBeauty.setDelFlag(YesNoEnum.NO.getValue());
-                            superBeauty.setPicList(picUrls.toString());
-                            superBeauty.setPicDescList(picDescs.toString());
-                            superBeautyService.insert(superBeauty);
-                            picLog = superBeauty.toString();
                             insertPic = true;
                             file.delete();
                         }

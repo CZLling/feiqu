@@ -40,7 +40,7 @@ layui.define(['fly','flow','laypage'], function(exports){
         }
         var commentBlock = '<div class="c-reply-block"><div class="reply-input">'+
                 '<span type="face" title="插入表情"><i class="iconfont icon-yxj-expression"></i></span>'+
-            '<input id="commentInputId" type="text" placeholder="评论下这个想法吧~" class="layui-input">'+
+            '<input id="commentInputId" type="text" placeholder="评论下这个随笔吧~" class="layui-input">'+
             ' <button id="commentBtn" class="layui-btn layui-btn-warm">评论</button></div></div>'
         var reply = $(this).parent().after(commentBlock)
         $('#commentInputId').focus()
@@ -92,7 +92,7 @@ layui.define(['fly','flow','laypage'], function(exports){
     })
     $('.del-t').on('click',function () {
         var li = $(this).parents('li');
-        layer.confirm('确认删除这个想法吗?', {icon: 3, title:'提示'}, function(index){
+        layer.confirm('确认删除这个随笔吗?', {icon: 3, title:'提示'}, function(index){
             var tid = li.data('id');
             fly.json('/thought/delete?thoughtId='+tid,function (result) {
                     layer.msg('删除成功');

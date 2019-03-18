@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>${fqNews.title} -飞趣</title>
+    <title>${fqNews.title} -随想</title>
     <meta name="description" content="${fqNews.title}">
     <style>
         .art-item{position:relative;}
@@ -53,7 +53,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             <div class="c-panel">
                 <div class="art-item card detail-about c-panel-body">
                     <h2 class="c-detail-title c-text-center"> ${fqNews.title}</h2>
-                    <a class="c-position-rt comment-dir" href="javascript:goComment()">评论走起</a>
+                    <a class="c-position-rt comment-dir" href="javascript:goComment()">去评论</a>
                     <div class="user-info">
                         <div class="detail-hits" id="article_admin" data-id="${fqNews.id}">
                         </div>
@@ -95,7 +95,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                             <%}%>
                         </div>
                     </li>
-                    <%}%>
+                    <%}%
                 </ul>
                 <div class="layui-form-item layui-form-text"><a name="comment"></a>
                 </div>

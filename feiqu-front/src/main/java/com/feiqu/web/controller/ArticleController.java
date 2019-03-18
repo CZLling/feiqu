@@ -155,7 +155,7 @@ public class ArticleController extends BaseController {
                 result.setResult(ResultEnum.USER_NOT_LOGIN);
                 return result;
             }
-            _log.info("用户：{} 写了一篇文章：{}",user.getId(),article.getArticleTitle());
+            _log.info("用户：{} 写了一篇笔记：{}",user.getId(),article.getArticleTitle());
             if (UserStatusEnum.FROZEN.getValue().equals(user.getStatus())) {
                 result.setResult(ResultEnum.USER_FROZEN);
                 return result;
@@ -170,7 +170,7 @@ public class ArticleController extends BaseController {
             }
             if(article.getArticleContent().length() < 50){
                 result.setResult(ResultEnum.PARAM_ERROR);
-                result.setMessage("文章长度不能小于50，如若请去想法处发表");
+                result.setMessage("文本长度小于50，请去随笔处发表吧");
                 return result;
             }
             String ip = WebUtil.getIP(request);
@@ -236,7 +236,7 @@ public class ArticleController extends BaseController {
                 result.setResult(ResultEnum.USER_NOT_LOGIN);
                 return result;
             }
-            _log.info("用户：{} 编辑了一篇文章：{}",fqUser.getId(),article.getArticleTitle());
+            _log.info("用户：{} 编辑了一篇笔记：{}",fqUser.getId(),article.getArticleTitle());
             if(UserStatusEnum.FROZEN.getValue().equals(fqUser.getStatus())){
                 result.setResult(ResultEnum.USER_FROZEN);
                 return result;
@@ -292,9 +292,9 @@ public class ArticleController extends BaseController {
             PageInfo pageInfo = new PageInfo(articles);
             result.setData(pageInfo);
         } catch (Exception e) {
-            _log.error("文章分页出错",e);
+            _log.error("笔记分页出错",e);
             result.setCode("1");
-            result.setMessage("文章分页出错");
+            result.setMessage("笔记分页出错");
         }
         return result;
     }
@@ -328,7 +328,7 @@ public class ArticleController extends BaseController {
             }
             article.setDelFlag(YesNoEnum.NO.getValue());
             articleService.updateByPrimaryKeySelective(article);
-            _log.info("审核文章，当前用户：{}，被审核用户：{}，状态：{}",currentUser.getId(),article.getUserId(),0);
+            _log.info("审核笔记，当前用户：{}，被审核用户：{}，状态：{}",currentUser.getId(),article.getUserId(),0);
             CommonUtils.addActiveNum(article.getUserId(),ActiveNumEnum.POST_ARTICLE.getValue());
             CommonUtils.addOrDelUserQudouNum(currentUser,5);
             CMessage message = new CMessage();
@@ -337,13 +337,13 @@ public class ArticleController extends BaseController {
             message.setDelFlag(YesNoEnum.NO.getValue());
             message.setReceivedUserId(article.getUserId());
             message.setType(MsgEnum.OFFICIAL_MSG.getValue());
-            message.setContent("系统消息通知：您发表的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId() +"\" target=\"_blank\">文章</a>已经审核通过！ "+ DateUtil.formatDateTime(new Date()));
+            message.setContent("系统消息通知：您发表的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId() +"\" target=\"_blank\">笔记</a>已经审核通过！ "+ DateUtil.formatDateTime(new Date()));
             messageService.insert(message);
             result.setMessage("审核通过");
         } catch (Exception e) {
-            _log.error("文章审核出错",e);
+            _log.error("笔记审核出错",e);
             result.setCode("1");
-            result.setMessage("文章审核出错");
+            result.setMessage("笔记审核出错");
         }
         return result;
     }
@@ -377,20 +377,20 @@ public class ArticleController extends BaseController {
             }
             article.setIsRecommend(YesNoEnum.YES.getValue());
             articleService.updateByPrimaryKeySelective(article);
-            _log.info("推荐文章，当前用户：{}，被推荐用户：{}，状态：{}",currentUser.getId(),article.getUserId(),1);
+            _log.info("推荐笔记，当前用户：{}，被推荐用户：{}，状态：{}",currentUser.getId(),article.getUserId(),1);
             CMessage message = new CMessage();
             message.setPostUserId(-1);
             message.setCreateTime(new Date());
             message.setDelFlag(YesNoEnum.NO.getValue());
             message.setReceivedUserId(article.getUserId());
             message.setType(MsgEnum.OFFICIAL_MSG.getValue());
-            message.setContent("系统消息通知：恭喜您，您发表的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId() +"\" target=\"_blank\">文章</a>被推荐！"+ DateUtil.formatDateTime(new Date()));
+            message.setContent("系统消息通知：恭喜您，您发表的<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId() +"\" target=\"_blank\">笔记</a>被推荐！"+ DateUtil.formatDateTime(new Date()));
             messageService.insert(message);
             result.setMessage("推荐成功");
         } catch (Exception e) {
-            _log.error("文章推荐出错",e);
+            _log.error("笔记推荐出错",e);
             result.setCode("1");
-            result.setMessage("文章推荐出错");
+            result.setMessage("笔记推荐出错");
         }
         return result;
     }
@@ -423,11 +423,11 @@ public class ArticleController extends BaseController {
             toUpdate.setId(article.getId());
             toUpdate.setArticleContent(HtmlUtils.htmlUnescape(article.getArticleContent()));
             articleService.updateByPrimaryKeySelective(toUpdate);
-            _log.info("反转义文章，当前用户：{}，被转义文章用户：{}",currentUser.getId(),article.getUserId());
+            _log.info("反转义笔记，当前用户：{}，被转义笔记用户：{}",currentUser.getId(),article.getUserId());
         } catch (Exception e) {
-            _log.error("文章反转义出错",e);
+            _log.error("笔记反转义出错",e);
             result.setCode("1");
-            result.setMessage("文章反转义出错");
+            result.setMessage("笔记反转义出错");
         }
         return result;
     }
@@ -454,7 +454,7 @@ public class ArticleController extends BaseController {
         model.addAttribute("article",article);
         model.addAttribute("oUser",oUser);
 
-        //查询类似的文章 类别
+        //查询类似的笔记 类别
         ArticleExample articleExample = new ArticleExample();
         articleExample.createCriteria().andLabelEqualTo(article.getLabel()).andDelFlagEqualTo(YesNoEnum.NO.getValue());
         articleExample.setOrderByClause("browse_count desc");
@@ -512,7 +512,7 @@ public class ArticleController extends BaseController {
                         message.setReceivedUserId(aiteUser.getId());
                         message.setType(MsgEnum.OFFICIAL_MSG.getValue());
                         message.setContent("系统消息通知：<a class=\"c-fly-link\" href=\""+ CommonConstant.DOMAIN_URL+"/u/"+user.getId()+"/peopleIndex\" target=\"_blank\">"+user.getNickname()+" </a> " +
-                                "在此<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId() +"\" target=\"_blank\">文章评论中</a>中回复了你 "+ DateUtil.formatDateTime(new Date()));
+                                "在此<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId() +"\" target=\"_blank\">笔记评论中</a>中回复了你 "+ DateUtil.formatDateTime(new Date()));
                         messageService.insert(message);
                     }
                 }else {
@@ -524,7 +524,7 @@ public class ArticleController extends BaseController {
                     message.setType(MsgEnum.OFFICIAL_MSG.getValue());
                     message.setContent("系统消息通知：<a class=\"c-fly-link\" href=\""+ CommonConstant.DOMAIN_URL+"/u/"+user.getId()+
                             "/peopleIndex\" target=\"_blank\">"+user.getNickname()+" </a>评论了你的" +
-                            "<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId()+"\" target=\"_blank\">文章</a> "
+                            "<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId()+"\" target=\"_blank\">笔记</a> "
                             + DateUtil.formatDateTime(new Date()));
                     messageService.insert(message);
                 }
@@ -532,7 +532,7 @@ public class ArticleController extends BaseController {
             }
             result.setData(comment);
         } catch (Exception e) {
-            _log.error("文章评论出错",e);
+            _log.error("笔记评论出错",e);
             result.setResult(ResultEnum.FAIL);
         }
         return result;
@@ -579,7 +579,7 @@ public class ArticleController extends BaseController {
                 }
                 message.setContent("系统消息通知：<a class=\"c-fly-link\" href=\""+ CommonConstant.DOMAIN_URL+"/u/"+user.getId()+
                         "/peopleIndex\" target=\"_blank\">"+user.getNickname()+" </a>赞了你的" +
-                        "<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId()+"\" target=\"_blank\">文章</a> "
+                        "<a class=\"c-fly-link\" href=\"" + CommonConstant.DOMAIN_URL + "/article/" + article.getId()+"\" target=\"_blank\">笔记</a> "
                         + DateUtil.formatDateTime(new Date()));
                 messageService.insert(message);
             }
@@ -645,7 +645,7 @@ public class ArticleController extends BaseController {
     }
 
     /*
-    我的文章
+    我的笔记
      */
     @GetMapping(value = "/my")
     public String myArticles(HttpServletRequest request, HttpServletResponse response,
@@ -676,7 +676,7 @@ public class ArticleController extends BaseController {
             model.addAttribute("p",page);
             model.addAttribute("pageSize",20);
         } catch (Exception e) {
-            _log.error("获取我的文章失败！",e);
+            _log.error("获取我的笔记失败！",e);
         }
         return "/article/articles.html";
     }

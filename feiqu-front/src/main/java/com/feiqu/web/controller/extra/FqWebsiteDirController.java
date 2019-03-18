@@ -336,10 +336,6 @@ public class FqWebsiteDirController extends BaseController {
     /**
      * 更新FqWebsiteDir页面
      */
-    @RequestMapping("/techWiki")
-    public Object techWiki() {
-        return "/websiteDir/techWiki.html";
-    }
 
     /*@RequestMapping("/collect")
     @ResponseBody

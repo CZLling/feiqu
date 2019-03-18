@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <%include("/common/_head.html"){}%>
-    <title>我的小窝 飞趣-让生活更有趣</title>
+    <title>我的主页 随想-让生活更有趣</title>
     <style>
         .tip{margin:15px 15px;line-height:26px;list-style:decimal-leading-zero inside;color:#009E94;padding-bottom:15px}
         .detail-body{min-height:0;margin-top:0;line-height:24px;font-size:14px}
@@ -49,8 +49,8 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                     <form class="layui-form" role="form" action="${ctxPath}/thought/post">
                         <div class="layui-form-item">
                             <div class="">
-                                <p class="t-intro">你有什么新想法<em class="spac4">?</em></p>
-                                <textarea title="想法详情" id="thoughtContent" name="thoughtContent" lay-verify="required" class="layui-textarea" required maxlength="400"></textarea>
+                                <p class="t-intro">你有什么新随笔<em class="spac4">?</em></p>
+                                <textarea title="随笔详情" id="thoughtContent" name="thoughtContent" lay-verify="required" class="layui-textarea" required maxlength="400"></textarea>
                             </div>
                         </div>
                         <div class="func-area layui-clear">
@@ -60,25 +60,25 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                                 <button class="layui-btn sayout" lay-filter="tform" lay-submit>发表</button>
                             </div>
                         </div>
-                        <div class="layer-pic-list c-panel layui-hide">
-                            <div class="imgUploadBox">
-                                <p class="uploader-title">本地上传</p>
-                                <p class="uploader-meta"></p>
-                                <a id="closeLayerPic" class="c-list-num" href="javascript:;"><i class="layui-icon layui-icon-close close-popup"></i></a>
-                                <ul class="to-upload-pictures">
-                                    <li class="upload-img-item upload-img-add addOnePic">
-                                        <i class="layui-icon layui-icon-add-1" style="font-size: 30px; color: rgb(221, 221, 221);"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <!--<div class="layer-pic-list c-panel layui-hide">-->
+                            <!--<div class="imgUploadBox">-->
+                                <!--<p class="uploader-title">本地上传</p>-->
+                                <!--<p class="uploader-meta"></p>-->
+                                <!--<a id="closeLayerPic" class="c-list-num" href="javascript:;"><i class="layui-icon layui-icon-close close-popup"></i></a>-->
+                                <!--<ul class="to-upload-pictures">-->
+                                    <!--<li class="upload-img-item upload-img-add addOnePic">-->
+                                        <!--<i class="layui-icon layui-icon-add-1" style="font-size: 30px; color: rgb(221, 221, 221);"></i>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <input name="picList" type="hidden" value="">
                     </form>
                 </div>
             </div>
             <div class="c-panel c-opacity-white-background">
                 <div class="c-panel-title">
-                    <a class="" href="javascript:;">置顶想法(置顶消耗20个趣豆,存在24个小时)</a>
+                    <a class="" href="javascript:;">置顶随笔(置顶消耗20个趣豆,存在24个小时)</a>
                 </div>
                 <%if(isNotEmpty(topThought)){%>
                 <ul class="c-list2">
@@ -130,12 +130,15 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                                 <div class="fly-detail-user">
                                     <a href="${ctxPath}/u/${thought.userId}/peopleIndex" class="c-fly-link">
                                         <cite>${thought.nickname}</cite>
+
                                     </a>
                                     <%if(thought.role == 1){%>
                                     <span class="staff">官方人员</span>
                                     <%}%>
                                 </div>
-                                <div class="detail-hits"><span class="${isNotEmpty(thought.area)?'t-area'}">${thought.area}</span><span>${printTime(thought.createTime)}</span></div>
+                                <div class="detail-hits"><span class="${isNotEmpty(thought.area)?'t-area'}">${thought.area}</span>
+                                    <a href="${ctxPath}/thought/${thought.id}"><span class="c-list-num">查看详情</span></a>
+                                    <span>${printTime(thought.createTime)}</span></div>
                             </div>
                             <div class="detail-body thought-body photos">
                                 <div class="thought-text">${emojiShow(thought.thoughtContent)}</div>
@@ -231,7 +234,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel">
-                <div class="c-panel-title">7天最热想法（每天更新）</div>
+                <div class="c-panel-title">7天最热随笔（每天更新）</div>
                 <div class="c-panel-body ctr-a-v1">
                     <ul class="photos">
                         <%for(var t in sevenDaysT){%>
