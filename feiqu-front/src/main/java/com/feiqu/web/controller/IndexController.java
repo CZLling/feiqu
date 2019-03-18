@@ -75,7 +75,7 @@ public class IndexController extends BaseController {
 //            PageInfo page = new PageInfo(thoughts);
             model.addAttribute("newThoughtList",CommonConstant.NEW_THOUGHT_LIST );
             model.addAttribute("thoughtList",CommonConstant.HOT_THOUGHT_LIST );
-            model.addAttribute("noticeList", CommonConstant.FQ_NOTICE_LIST);
+//            model.addAttribute("noticeList", CommonConstant.FQ_NOTICE_LIST);
             model.addAttribute("articleList", CommonConstant.HOT_ARTICLE_LIST);
 //            model.addAttribute("beautyList", CommonConstant.HOT_BEAUTY_LIST );
             model.addAttribute("newUserList", CommonConstant.NEW_SIMPLE_USERS );

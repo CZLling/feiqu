@@ -16,10 +16,8 @@ import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
 import com.feiqu.system.pojo.simple.FqUserSim;
 import com.feiqu.system.service.ArticleService;
-import com.feiqu.system.service.FqNoticeService;
 import com.feiqu.system.service.FqUserService;
 import com.feiqu.system.service.ThoughtService;
-import com.feiqu.system.service.impl.FqNoticeServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -98,14 +96,15 @@ public class Initialize implements BaseInterface {
 			thoughtExample.createCriteria().andDelFlagEqualTo(YesNoEnum.NO.getValue());
 			CommonConstant.HOT_THOUGHT_LIST = thoughtService.getThoughtWithUser(thoughtExample);
 
-			FqNoticeExample example = new FqNoticeExample();
-			example.setOrderByClause("fq_order asc");
-			example.createCriteria().andIsShowEqualTo(YesNoEnum.YES.getValue());
-			FqNoticeService fqNoticeService = SpringUtils.getBean(FqNoticeServiceImpl.class);
-			List<FqNotice> list = fqNoticeService.selectByExample(example);
-			if(CollectionUtil.isNotEmpty(list)){
-                CommonConstant.FQ_NOTICE_LIST = list;
-            }
+//			FqNoticeExample example = new FqNoticeExample();
+//			example.setOrderByClause("fq_order asc");
+//			example.createCriteria().andIsShowEqualTo(YesNoEnum.YES.getValue());
+//			FqNoticeService fqNoticeService = SpringUtils.getBean(FqNoticeServiceImpl.class);
+//			List<FqNotice> list = fqNoticeService.selectByExample(example);
+//			if(CollectionUtil.isNotEmpty(list)){
+//                CommonConstant.FQ_NOTICE_LIST = list;
+//            }
+
 			ArticleExample articleExample = new ArticleExample();
 			articleExample.setOrderByClause("browse_count desc");
 			articleExample.createCriteria().andCreateTimeGreaterThan(oneMonthDateBefore);
@@ -165,7 +164,7 @@ public class Initialize implements BaseInterface {
 					userIdList.add(Integer.valueOf(userId));
 				}
 				FqUserExample fqUserExample = new FqUserExample();
-				example.createCriteria().andIdIn(userIdList);
+//				example.createCriteria().andIdIn(userIdList);
 				List<FqUser> fqUsers = fqUserService.selectByExample(fqUserExample);
 				Map<Integer,FqUser> userMap = Maps.newHashMap();
 				fqUsers.forEach(fqUser -> {

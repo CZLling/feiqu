@@ -45,8 +45,8 @@ public class HotContentJob {
     @Resource
     private ArticleService articleService;
 
-    @Resource
-    private FqNoticeService fqNoticeService;
+//    @Resource
+//    private FqNoticeService fqNoticeService;
 
     @Resource
     private ThoughtService thoughtService;
@@ -101,13 +101,13 @@ public class HotContentJob {
             CommonConstant.HOT_ARTICLE_LIST = hotArticles;
         }
 
-        FqNoticeExample fqNoticeExample = new FqNoticeExample();
-        fqNoticeExample.setOrderByClause("fq_order asc");
-        fqNoticeExample.createCriteria().andIsShowEqualTo(YesNoEnum.YES.getValue());
-        List<FqNotice> list = fqNoticeService.selectByExample(fqNoticeExample);
-        if(CollectionUtil.isNotEmpty(list)){
-            CommonConstant.FQ_NOTICE_LIST = list;
-        }
+//        FqNoticeExample fqNoticeExample = new FqNoticeExample();
+//        fqNoticeExample.setOrderByClause("fq_order asc");
+//        fqNoticeExample.createCriteria().andIsShowEqualTo(YesNoEnum.YES.getValue());
+//        List<FqNotice> list = fqNoticeService.selectByExample(fqNoticeExample);
+//        if(CollectionUtil.isNotEmpty(list)){
+//            CommonConstant.FQ_NOTICE_LIST = list;
+//        }
 
         PageHelper.startPage(0,5,false);
 //        SuperBeautyExample beautyExample = new SuperBeautyExample();

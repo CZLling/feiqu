@@ -3,7 +3,6 @@ package com.feiqu.framwork.constant;
 import cn.hutool.core.date.DateUtil;
 import com.feiqu.system.model.Article;
 import com.feiqu.system.model.FqArea;
-import com.feiqu.system.model.FqNotice;
 import com.feiqu.system.pojo.response.KeyValue;
 import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
@@ -40,7 +39,7 @@ public class CommonConstant {
     public static Integer SIGN_DAYS_QUDOU_NUM_30_MORE = 20;
     public static Integer DEAULT_PAGE_SIZE= 10;
 
-    public static List<FqNotice> FQ_NOTICE_LIST= null;
+//    public static List<FqNotice> FQ_NOTICE_LIST= null;
     public static List<Article> HOT_ARTICLE_LIST= null;
     public static List<FqArea> AREA_LIST= null;
 //    public static List<BeautyUserResponse> HOT_BEAUTY_LIST = null;
