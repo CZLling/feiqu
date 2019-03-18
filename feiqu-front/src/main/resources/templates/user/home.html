@@ -130,12 +130,15 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                                 <div class="fly-detail-user">
                                     <a href="${ctxPath}/u/${thought.userId}/peopleIndex" class="c-fly-link">
                                         <cite>${thought.nickname}</cite>
+
                                     </a>
                                     <%if(thought.role == 1){%>
                                     <span class="staff">官方人员</span>
                                     <%}%>
                                 </div>
-                                <div class="detail-hits"><span class="${isNotEmpty(thought.area)?'t-area'}">${thought.area}</span><span>${printTime(thought.createTime)}</span></div>
+                                <div class="detail-hits"><span class="${isNotEmpty(thought.area)?'t-area'}">${thought.area}</span>
+                                    <a href="${ctxPath}/thought/${thought.id}"><span class="c-list-num">查看详情</span></a>
+                                    <span>${printTime(thought.createTime)}</span></div>
                             </div>
                             <div class="detail-body thought-body photos">
                                 <div class="thought-text">${emojiShow(thought.thoughtContent)}</div>
