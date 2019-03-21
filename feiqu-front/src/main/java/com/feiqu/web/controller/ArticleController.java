@@ -3,6 +3,7 @@ package com.feiqu.web.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
+import com.feiqu.common.annotation.UserAction;
 import com.feiqu.common.base.BaseResult;
 import com.feiqu.common.enums.*;
 import com.feiqu.common.utils.EmojiUtils;
@@ -434,6 +435,7 @@ public class ArticleController extends BaseController {
 
 
     @RequestMapping("/{articleId}")
+    @UserAction(actionType = 1)
     public String articleDetail(@PathVariable Integer articleId, Model model){
         Article article = articleService.selectByPrimaryKey(articleId);
         if(article == null){
@@ -540,6 +542,7 @@ public class ArticleController extends BaseController {
 
     @PostMapping("like")
     @ResponseBody
+    @UserAction(actionType = 2)
     public Object like(Integer articleId, HttpServletRequest request, HttpServletResponse response){
         BaseResult result = new BaseResult();
         try {
@@ -702,6 +705,7 @@ public class ArticleController extends BaseController {
 
     @PostMapping("/collect/{type}")
     @ResponseBody
+    @UserAction(actionType = 3)
     public Object collect(@PathVariable String type, Integer aid, HttpServletRequest request, HttpServletResponse response){
         BaseResult result = new BaseResult();
         try {

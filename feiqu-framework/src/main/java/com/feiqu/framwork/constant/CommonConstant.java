@@ -90,8 +90,8 @@ public class CommonConstant {
     public static String GENERAL_CUSTOM_ERROR_CODE = "errorMsg";//
 
 
-    public static List<Object> BEAUTY_BANNERS = Lists.newArrayList();
-    public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
+//    public static List<Object> BEAUTY_BANNERS = Lists.newArrayList();
+//    public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
 
     //网址点击事件统计
     public static String FQ_USER_WEBSITE_CLICK_COUNT = "fq_user_website_click_count";
