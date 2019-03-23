@@ -7,6 +7,7 @@ import com.feiqu.system.model.Article;
 import com.feiqu.system.model.UserActionNew;
 import com.feiqu.system.pojo.cache.FqUserCache;
 import com.feiqu.system.service.ArticleService;
+import com.feiqu.system.service.UserActionNewService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,6 +33,8 @@ public class UserActionAspect {
     private ArticleService articleService;
     @Autowired
     private WebUtil webUtil;
+    @Autowired
+    UserActionNewService userActionNewService;
 
 
     @Pointcut("@annotation(com.feiqu.common.annotation.UserAction)")
@@ -49,15 +52,33 @@ public class UserActionAspect {
     }
 
 
-    private void insertUserAction(Object[] objects,UserAction action){
-        if(action.actionType() == UserActionEnum.COLLECT.getValue()){
+    private void insertUserAction(Object[] objects,UserAction action) {
+        if (action.actionType() == UserActionEnum.BROWSE.getValue()) {
+            Integer aid = Integer.valueOf(String.valueOf(objects[0]));//笔记ID
+            HttpServletRequest request = (HttpServletRequest) objects[1];
+            HttpServletResponse response = (HttpServletResponse) objects[2];
+            FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
+            Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
+            UserActionNew userAction = new UserActionNew();
+            userAction.setActionType(UserActionEnum.BROWSE.getValue());
+            userAction.setActionUserId(fqUser.getId());
+            userAction.setArticleId(aid);
+            userAction.setArticleLabel(articleDB.getLabel());
+            userAction.setOtherUserId(articleDB.getUserId());
+            userAction.setCreateTime(new Date());
+            if (fqUser.getId() != articleDB.getUserId()) {
+                userActionNewService.insertBrowse(userAction);
+            }
+        }
+
+
+        if (action.actionType() == UserActionEnum.COLLECT.getValue()) {
             //todo insert
-//            String userid = String.valueOf(objects[0]);
-            Integer aid = Integer.valueOf(String.valueOf(objects[1]));
+            Integer aid = Integer.valueOf(String.valueOf(objects[1]));//笔记ID
             HttpServletRequest request = (HttpServletRequest) objects[2];
             HttpServletResponse response = (HttpServletResponse) objects[3];
-            FqUserCache fqUser = webUtil.currentUser(request,response);
-            Article articleDB = articleService.selectByPrimaryKey(aid);
+            FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
+            Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
             UserActionNew userAction = new UserActionNew();
             userAction.setActionType(UserActionEnum.COLLECT.getValue());
             userAction.setActionUserId(fqUser.getId());
@@ -65,17 +86,58 @@ public class UserActionAspect {
             userAction.setArticleLabel(articleDB.getLabel());
             userAction.setOtherUserId(articleDB.getUserId());
             userAction.setCreateTime(new Date());
-
-
-            if(fqUser.getId() != articleDB.getUserId()){
-                // todo  1.dao -> xml -> service   insert() >> userAction
+            // todo  1.dao -> xml -> service   insert() >> userAction
+            if (fqUser.getId() != articleDB.getUserId()) {
+                if (!userActionNewService.checkActionExist(fqUser.getId(),UserActionEnum.COLLECT.getValue(),aid)) {
+                userActionNewService.insertCollect(userAction);
+                }
             }
-
-            logger.info("2222222222222"+articleDB.getUserId() + articleDB.getLabel()+fqUser.getId());
         }
+
+
+        if (action.actionType() == UserActionEnum.LIKE.getValue()) {
+            Integer aid = Integer.valueOf(String.valueOf(objects[0]));//笔记ID
+            HttpServletRequest request = (HttpServletRequest) objects[1];
+            HttpServletResponse response = (HttpServletResponse) objects[2];
+            FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
+            Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
+            UserActionNew userAction = new UserActionNew();
+            userAction.setActionType(UserActionEnum.LIKE.getValue());
+            userAction.setActionUserId(fqUser.getId());
+            userAction.setArticleId(aid);
+            userAction.setArticleLabel(articleDB.getLabel());
+            userAction.setOtherUserId(articleDB.getUserId());
+            userAction.setCreateTime(new Date());
+            boolean a = userActionNewService.checkActionExist(fqUser.getId(),UserActionEnum.LIKE.getValue(),aid);
+            if (fqUser.getId() != articleDB.getUserId()) {
+               if (!userActionNewService.checkActionExist(fqUser.getId(),UserActionEnum.LIKE.getValue(),aid)) {
+                userActionNewService.insertLike(userAction);
+                }
+            }
+        }
+
+
+        if (action.actionType() == UserActionEnum.FOLLOW.getValue()) {
+            Integer otherUserId = Integer.valueOf(String.valueOf(objects[0]));//被关注人ID
+            HttpServletRequest request = (HttpServletRequest) objects[1];
+            HttpServletResponse response = (HttpServletResponse) objects[2];
+            FqUserCache fqUser= webUtil.currentUser(request, response); //当前用户
+            UserActionNew userAction = new UserActionNew();
+            userAction.setActionType(UserActionEnum.FOLLOW.getValue());
+            userAction.setActionUserId(fqUser.getId());
+            userAction.setOtherUserId(otherUserId);
+            userAction.setCreateTime(new Date());
+            boolean a = userActionNewService.checkFollowActionExist(fqUser.getId(),UserActionEnum.FOLLOW.getValue(),otherUserId);
+            if(!userActionNewService.checkFollowActionExist(fqUser.getId(),UserActionEnum.FOLLOW.getValue(),otherUserId)){
+                userActionNewService.insertFollow(userAction);
+            }
+        }
+
+
+
+
+
+        }
+
+
     }
-
-
-
-
-}
