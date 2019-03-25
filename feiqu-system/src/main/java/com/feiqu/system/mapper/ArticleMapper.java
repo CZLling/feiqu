@@ -37,4 +37,6 @@ public interface ArticleMapper {
     int updateByPrimaryKey(Article record);
 
     List<ArticleUserDetail> selectUserByExampleWithBLOBs(ArticleExample example);
+
+    List<Article> getArticleByLabels(@Param("labels") List<Integer> labels);
 }

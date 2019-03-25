@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.util.*;
 
 @Aspect
 @Order(1)
@@ -37,6 +37,7 @@ public class UserActionAspect {
     UserActionNewService userActionNewService;
 
 
+
     @Pointcut("@annotation(com.feiqu.common.annotation.UserAction)")
     public void annotationPoinCut() {
     }
@@ -48,96 +49,60 @@ public class UserActionAspect {
         Object[] objects = joinPoint.getArgs();
         Method method = signature.getMethod();
         UserAction action = method.getAnnotation(UserAction.class);
+        if(objects!=null && !Objects.isNull(action))
         insertUserAction(objects,action);
     }
 
 
     private void insertUserAction(Object[] objects,UserAction action) {
+        Integer aid = Integer.valueOf(String.valueOf(objects[0]));//笔记ID
+        HttpServletRequest request = (HttpServletRequest) objects[1];
+        HttpServletResponse response = (HttpServletResponse) objects[2];
+        FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
+        Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
+
         if (action.actionType() == UserActionEnum.BROWSE.getValue()) {
-            Integer aid = Integer.valueOf(String.valueOf(objects[0]));//笔记ID
-            HttpServletRequest request = (HttpServletRequest) objects[1];
-            HttpServletResponse response = (HttpServletResponse) objects[2];
-            FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
-            Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
-            UserActionNew userAction = new UserActionNew();
-            userAction.setActionType(UserActionEnum.BROWSE.getValue());
-            userAction.setActionUserId(fqUser.getId());
-            userAction.setArticleId(aid);
-            userAction.setArticleLabel(articleDB.getLabel());
-            userAction.setOtherUserId(articleDB.getUserId());
-            userAction.setCreateTime(new Date());
-            if (fqUser.getId() != articleDB.getUserId()) {
-                userActionNewService.insertBrowse(userAction);
-            }
+            insertOrUpdateAction(aid, fqUser, articleDB,action.actionType());
+ 
         }
-
-
-        if (action.actionType() == UserActionEnum.COLLECT.getValue()) {
-            //todo insert
-            Integer aid = Integer.valueOf(String.valueOf(objects[1]));//笔记ID
-            HttpServletRequest request = (HttpServletRequest) objects[2];
-            HttpServletResponse response = (HttpServletResponse) objects[3];
-            FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
-            Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
-            UserActionNew userAction = new UserActionNew();
-            userAction.setActionType(UserActionEnum.COLLECT.getValue());
-            userAction.setActionUserId(fqUser.getId());
-            userAction.setArticleId(aid);
-            userAction.setArticleLabel(articleDB.getLabel());
-            userAction.setOtherUserId(articleDB.getUserId());
-            userAction.setCreateTime(new Date());
-            // todo  1.dao -> xml -> service   insert() >> userAction
-            if (fqUser.getId() != articleDB.getUserId()) {
-                if (!userActionNewService.checkActionExist(fqUser.getId(),UserActionEnum.COLLECT.getValue(),aid)) {
-                userActionNewService.insertCollect(userAction);
-                }
-            }
-        }
-
-
         if (action.actionType() == UserActionEnum.LIKE.getValue()) {
-            Integer aid = Integer.valueOf(String.valueOf(objects[0]));//笔记ID
-            HttpServletRequest request = (HttpServletRequest) objects[1];
-            HttpServletResponse response = (HttpServletResponse) objects[2];
-            FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
-            Article articleDB = articleService.selectByPrimaryKey(aid); //笔记信息
-            UserActionNew userAction = new UserActionNew();
-            userAction.setActionType(UserActionEnum.LIKE.getValue());
-            userAction.setActionUserId(fqUser.getId());
-            userAction.setArticleId(aid);
-            userAction.setArticleLabel(articleDB.getLabel());
-            userAction.setOtherUserId(articleDB.getUserId());
-            userAction.setCreateTime(new Date());
-            boolean a = userActionNewService.checkActionExist(fqUser.getId(),UserActionEnum.LIKE.getValue(),aid);
-            if (fqUser.getId() != articleDB.getUserId()) {
-               if (!userActionNewService.checkActionExist(fqUser.getId(),UserActionEnum.LIKE.getValue(),aid)) {
-                userActionNewService.insertLike(userAction);
-                }
+            insertOrUpdateAction(aid, fqUser, articleDB,action.actionType());
+        }
+        if (action.actionType() == UserActionEnum.COLLECT.getValue()) {
+            String type = String.valueOf(objects[3]);//add or remove
+            if("add".equals(type)){
+                insertOrUpdateAction(aid, fqUser, articleDB,action.actionType());
+            }else if("remove".equals(type)){
+                insertOrUpdateAction(aid, fqUser, articleDB,UserActionEnum.CANCELCOLLECT.getValue());
             }
         }
+    }
 
+    private UserActionNew packUserAction(Integer aid, FqUserCache fqUser, Article articleDB,int actionType){
+        UserActionNew userAction = new UserActionNew();
+        userAction.setActionType(Integer.valueOf(actionType));
+        userAction.setActionUserId(fqUser.getId());
+        userAction.setArticleId(aid);
+        userAction.setArticleLabel(articleDB.getLabel());
+        userAction.setOtherUserId(articleDB.getUserId());
+        userAction.setCreateTime(new Date());
+        return userAction;
+    }
 
-        if (action.actionType() == UserActionEnum.FOLLOW.getValue()) {
-            Integer otherUserId = Integer.valueOf(String.valueOf(objects[0]));//被关注人ID
-            HttpServletRequest request = (HttpServletRequest) objects[1];
-            HttpServletResponse response = (HttpServletResponse) objects[2];
-            FqUserCache fqUser= webUtil.currentUser(request, response); //当前用户
-            UserActionNew userAction = new UserActionNew();
-            userAction.setActionType(UserActionEnum.FOLLOW.getValue());
-            userAction.setActionUserId(fqUser.getId());
-            userAction.setOtherUserId(otherUserId);
-            userAction.setCreateTime(new Date());
-            boolean a = userActionNewService.checkFollowActionExist(fqUser.getId(),UserActionEnum.FOLLOW.getValue(),otherUserId);
-            if(!userActionNewService.checkFollowActionExist(fqUser.getId(),UserActionEnum.FOLLOW.getValue(),otherUserId)){
-                userActionNewService.insertFollow(userAction);
+    private void insertOrUpdateAction(Integer aid, FqUserCache fqUser, Article articleDB,int actionType) {
+        UserActionNew userAction =  packUserAction(aid,fqUser,articleDB, actionType);
+        if (fqUser.getId() != articleDB.getUserId()) {
+            UserActionNew userActionNew = userActionNewService.getActionByIds(fqUser.getId(),aid);
+            if(Objects.isNull(userActionNew)){
+                userActionNewService.insertAction(userAction);
+            }else{
+                userAction.setActionType(Integer.valueOf(userActionNew.getActionType()+ actionType));
+                userActionNewService.updateActionByIds(userAction);
             }
         }
-
-
-
-
-
-        }
-
 
     }
+
+
+
+}

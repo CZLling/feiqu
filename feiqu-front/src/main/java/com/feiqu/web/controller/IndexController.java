@@ -11,11 +11,9 @@ import com.feiqu.framwork.constant.CommonConstant;
 import com.feiqu.framwork.util.WebUtil;
 import com.feiqu.framwork.web.base.BaseController;
 import com.feiqu.system.model.*;
+import com.feiqu.system.pojo.cache.FqUserCache;
 import com.feiqu.system.pojo.response.ArticleUserDetail;
-import com.feiqu.system.service.ArticleService;
-import com.feiqu.system.service.FqLabelService;
-import com.feiqu.system.service.FqUserService;
-import com.feiqu.system.service.ThoughtService;
+import com.feiqu.system.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
@@ -29,6 +27,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +55,8 @@ public class IndexController extends BaseController {
     private FqUserService fqUserService;
     @Autowired
     private WebUtil webUtil;
+    @Autowired
+    private UserActionNewService userActionNewService;
 
     @GetMapping(value = {"index",""})
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(defaultValue = "1") Integer pageIndex,
@@ -91,14 +92,15 @@ public class IndexController extends BaseController {
     }
 
     @RequestMapping(value = "/superGeek")
-    public String superGeekIndex(Model model, Integer labelId, String order, String keyword){
-       return superGeek(model,1,order,labelId,keyword);
+    public String superGeekIndex(Model model, Integer labelId, String order, String keyword ,HttpServletRequest request, HttpServletResponse response){
+       return superGeek(model,1,order,labelId,keyword,request,response);
     }
 
     @RequestMapping(value = "/superGeek/{pageIndex}")
     public String superGeek(Model model, @PathVariable(required = false) Integer pageIndex,
-                            String order, Integer labelId, String keyword){
+                            String order, Integer labelId, String keyword, HttpServletRequest request, HttpServletResponse response){
         PageHelper.startPage(pageIndex, 20);
+        FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
         ArticleExample example = new ArticleExample();
         if("zan".equals(order)){
             example.setOrderByClause("like_count desc ");
@@ -116,11 +118,25 @@ public class IndexController extends BaseController {
         if(StringUtils.isNotBlank(keyword)){
             example.getOredCriteria().get(0).andArticleTitleLike("%"+keyword+"%");
         }
-        List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);
-        example.clear();
-        example.setOrderByClause("create_time desc");
-        example.createCriteria().andIsRecommendEqualTo(YesNoEnum.YES.getValue());
-        List<Article> recommendArticles = articleService.selectByExample(example);
+        List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);//所有笔记
+
+        List<UserActionNew> list1=userActionNewService.getActionByUserId(fqUser.getId());
+        List<Integer> labels1= null;
+        List<Article> recommendArticles = new ArrayList<Article>();//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
+        if(list1!=null && list1.size()!=0){
+            Integer[] labels= new Integer[list1.size()];
+            for (int i = 0; i < list1.size(); i++){
+                labels[i] =list1.get(i).getArticleLabel();
+            }
+            labels1=java.util.Arrays.asList(labels);
+            recommendArticles= articleService.getArticleByLabels(labels1);
+        }else{
+            example.clear();
+            example.setOrderByClause("browse_count desc");
+            example.createCriteria().andIsRecommendEqualTo(YesNoEnum.YES.getValue());
+            recommendArticles = articleService.selectByExample(example);
+        }
+
         PageInfo page = new PageInfo(articles);
         model.addAttribute("recommendArticles",recommendArticles);
         model.addAttribute("articles",articles);

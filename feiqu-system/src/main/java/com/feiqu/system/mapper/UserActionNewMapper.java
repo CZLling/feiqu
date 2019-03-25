@@ -4,18 +4,26 @@ package com.feiqu.system.mapper;
 import com.feiqu.system.model.UserActionNew;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserActionNewMapper {
 
-     Integer insertCollect(UserActionNew userActionNew);
+     Integer insertAction(UserActionNew userActionNew);
 
      Integer queryActionCount(@Param("actionUserId") Integer actionUserId ,@Param("actionType") Integer actionType,@Param("articleId") Integer articleId);
 
-     Integer insertLike(UserActionNew userActionNew);
+     UserActionNew getActionByIds(@Param("actionUserId") Integer actionUserId ,@Param("articleId") Integer articleId);
 
-     Integer insertFollow(UserActionNew userActionNew);
+     void updateActionByIds(UserActionNew userAction);
 
-     Integer queryFollowActionCount(@Param("actionUserId") Integer actionUserId ,@Param("actionType") Integer actionType,@Param("otherUserId") Integer otherUserId);
+     List<UserActionNew> getActionByUserId(@Param("actionUserId") Integer actionUserId);
 
-     Integer insertBrowse(UserActionNew userActionNew);
+
+
+
+
+
+
+
 
 }

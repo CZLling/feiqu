@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class UserActionNewServiceImpl implements UserActionNewService {
@@ -14,9 +16,8 @@ public class UserActionNewServiceImpl implements UserActionNewService {
     @Autowired
     UserActionNewMapper userActionNewMapper;
 
-
-    public Integer insertCollect(UserActionNew userActionNew){
-        return userActionNewMapper.insertCollect(userActionNew);
+    public Integer insertAction(UserActionNew userActionNew){
+        return userActionNewMapper.insertAction(userActionNew);
     }
 
     public boolean checkActionExist(Integer actionUserId ,Integer actionType,Integer articleId) {
@@ -27,23 +28,23 @@ public class UserActionNewServiceImpl implements UserActionNewService {
         return  count != 0 ? true : false;
     }
 
-    public Integer insertLike(UserActionNew userActionNew){
-        return userActionNewMapper.insertLike(userActionNew);
+
+    public UserActionNew getActionByIds(Integer actionUserId ,Integer articleId){
+        return userActionNewMapper.getActionByIds(actionUserId,articleId);
     }
 
-    public Integer insertFollow(UserActionNew userActionNew){
-        return userActionNewMapper.insertFollow(userActionNew);
+
+    public void updateActionByIds(UserActionNew userAction){
+        userActionNewMapper.updateActionByIds(userAction);
     }
 
-    public boolean checkFollowActionExist(Integer actionUserId ,Integer actionType,Integer otherUserId) {
-        if (actionUserId == null || actionType == null || otherUserId == null) {
-            throw new NullPointerException("param is null");
-        }
-        return userActionNewMapper.queryFollowActionCount(actionUserId, actionType, otherUserId) !=0 ? true : false;
+    public List<UserActionNew> getActionByUserId(Integer actionUserId){
+        return userActionNewMapper.getActionByUserId(actionUserId);
     }
 
-    public Integer insertBrowse(UserActionNew userActionNew){
-        return userActionNewMapper.insertBrowse(userActionNew);
-    }
+
+
+
+
 
 }

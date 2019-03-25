@@ -63,4 +63,15 @@ public class Test1 {
         }
     }
 
+    @Test
+    public void test3{
+        public static void main(String args[]){
+            List<UserActionNew> list =userActionNewService.getActionByUserId(2);
+            List<UserActionNew> list1 =userActionNewService.getActionByUserId(1);
+        }
+
+    }
+
+
+
 }

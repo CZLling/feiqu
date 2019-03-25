@@ -1,6 +1,5 @@
 package com.feiqu.web.controller;
 
-import com.feiqu.common.annotation.UserAction;
 import com.feiqu.common.base.BaseResult;
 import com.feiqu.common.enums.ResultEnum;
 import com.feiqu.common.enums.YesNoEnum;
@@ -41,7 +40,6 @@ public class FollowController extends BaseController {
 
     @PostMapping("/{followedUserId}/followers")
     @ResponseBody
-    @UserAction(actionType = 4)
     public Object follow(@PathVariable Integer followedUserId, HttpServletRequest request, HttpServletResponse response){
         BaseResult result = new BaseResult();
         FqUserCache user = webUtil.currentUser(request,response);

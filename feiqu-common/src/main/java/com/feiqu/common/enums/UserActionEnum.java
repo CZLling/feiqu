@@ -5,7 +5,7 @@ public enum UserActionEnum {
     BROWSE("浏览",1),
     LIKE("点赞",2),
     COLLECT("收藏",3),
-    FOLLOW("关注",4),;
+    CANCELCOLLECT("取消收藏",-3);
 
     private String desc;
     private Integer value;

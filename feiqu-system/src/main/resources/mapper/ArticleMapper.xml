@@ -391,6 +391,7 @@
       article_content = #{articleContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.feiqu.system.model.Article">
     update article
     set article_title = #{articleTitle,jdbcType=VARCHAR},
@@ -406,4 +407,14 @@
       content_type = #{contentType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getArticleByLabels" parameterType="Map" resultMap="BaseResultMap">
+    select * from article
+    <if test="labels != null">
+      where label in
+      <foreach collection="labels" index="index" item="label" open="(" separator="," close=")">
+        #{label}
+      </foreach>
+    </if>
+    order by browse_count DESC LIMIT 5
+  </select>
 </mapper>

@@ -3,22 +3,25 @@ package com.feiqu.system.service;
 
 import com.feiqu.system.model.UserActionNew;
 
+import java.util.List;
+
 /**
 
 */
 public interface UserActionNewService {
 
-     Integer insertCollect(UserActionNew userActionNew);
+     Integer insertAction(UserActionNew userActionNew);
 
      boolean checkActionExist(Integer actionUserId ,Integer actionType,Integer articleId);
 
-     Integer insertLike(UserActionNew userActionNew);
+     UserActionNew getActionByIds(Integer actionUserId ,Integer articleId);
 
-     Integer insertFollow(UserActionNew userActionNew);
+     void updateActionByIds(UserActionNew userAction);
 
-     boolean checkFollowActionExist(Integer actionUserId ,Integer actionType,Integer otherUserId);
+     List<UserActionNew> getActionByUserId(Integer actionUserId);
 
-     Integer insertBrowse(UserActionNew userActionNew);
+
+
 
 
 

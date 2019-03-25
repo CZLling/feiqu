@@ -706,7 +706,7 @@ public class ArticleController extends BaseController {
     @PostMapping("/collect/{type}")
     @ResponseBody
     @UserAction(actionType = 3)
-    public Object collect(@PathVariable String type, Integer aid, HttpServletRequest request, HttpServletResponse response){
+    public Object collect(Integer aid, HttpServletRequest request, HttpServletResponse response,@PathVariable String type){
         BaseResult result = new BaseResult();
         try {
             FqUserCache fqUser = webUtil.currentUser(request,response);

@@ -8,6 +8,7 @@ import com.feiqu.system.model.Article;
 import com.feiqu.system.model.ArticleExample;
 import com.feiqu.system.pojo.response.ArticleUserDetail;
 import com.feiqu.system.service.ArticleService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article, 
     public List<ArticleUserDetail> selectUserByExampleWithBLOBs(ArticleExample example) {
         return articleMapper.selectUserByExampleWithBLOBs(example);
     }
+    public List<Article> getArticleByLabels(@Param("labels") List<Integer> labels){
+        return articleMapper.getArticleByLabels(labels);
+    }
+
 }

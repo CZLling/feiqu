@@ -8,4 +8,5 @@ public class UserActionConstant {
     private static final int COLLECT = 3;//收藏
     private static final int FOLLOW = 4;//关注
 
+
 }
