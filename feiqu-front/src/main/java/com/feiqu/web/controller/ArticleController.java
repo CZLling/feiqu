@@ -437,6 +437,7 @@ public class ArticleController extends BaseController {
     @RequestMapping("/{articleId}")
     @UserAction(actionType = 1)
     public String articleDetail(@PathVariable Integer articleId,HttpServletRequest request,HttpServletResponse response, Model model){
+        _log.info(">>>>>>>>>>>>>>>>"+articleId);
         Article article = articleService.selectByPrimaryKey(articleId);
         if(article == null){
             return GENERAL_NOT_FOUNF_404_URL;

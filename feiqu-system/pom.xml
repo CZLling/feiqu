@@ -13,6 +13,7 @@
 
     <properties>
         <pagehelper.boot.version>1.2.5</pagehelper.boot.version>
+        <mahout.version>0.9</mahout.version>
     </properties>
 
     <description>
@@ -33,6 +34,28 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.boot.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-core</artifactId>
+            <version>${mahout.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-integration</artifactId>
+            <version>${mahout.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-math</artifactId>
+            <version>${mahout.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-examples</artifactId>
+            <version>${mahout.version}</version>
+        </dependency>
+
     </dependencies>
 
     

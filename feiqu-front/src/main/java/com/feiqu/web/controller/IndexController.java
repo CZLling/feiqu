@@ -2,6 +2,7 @@ package com.feiqu.web.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.feiqu.common.enums.TopicTypeEnum;
@@ -16,6 +17,7 @@ import com.feiqu.system.pojo.response.ArticleUserDetail;
 import com.feiqu.system.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -120,16 +121,14 @@ public class IndexController extends BaseController {
         }
         List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);//所有笔记
 
-        List<UserActionNew> list1=userActionNewService.getActionByUserId(fqUser.getId());
-        List<Integer> labels1= null;
-        List<Article> recommendArticles = new ArrayList<Article>();//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
-        if(list1!=null && list1.size()!=0){
-            Integer[] labels= new Integer[list1.size()];
-            for (int i = 0; i < list1.size(); i++){
-                labels[i] =list1.get(i).getArticleLabel();
+        List<UserActionNew> list = userActionNewService.getActionByUserId(fqUser.getId());
+        List<Article> recommendArticles;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
+        if(CollectionUtil.isNotEmpty(list)){
+            List<Integer> labels = Lists.newArrayList();
+            for (UserActionNew userActionNew:list){
+                labels.add(userActionNew.getArticleLabel());
             }
-            labels1=java.util.Arrays.asList(labels);
-            recommendArticles= articleService.getArticleByLabels(labels1);
+            recommendArticles = articleService.getArticleByLabels(labels);
         }else{
             example.clear();
             example.setOrderByClause("browse_count desc");
