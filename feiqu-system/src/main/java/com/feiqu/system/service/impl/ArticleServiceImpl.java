@@ -38,8 +38,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article, 
     public List<ArticleUserDetail> selectUserByExampleWithBLOBs(ArticleExample example) {
         return articleMapper.selectUserByExampleWithBLOBs(example);
     }
-    public List<Article> getArticleByLabels(@Param("labels") List<Integer> labels){
-        return articleMapper.getArticleByLabels(labels);
+    public List<Article> getArticleByLabels(List<Integer> labels,  Integer userId){
+        return articleMapper.getArticleByLabels(labels,userId);
+    }
+
+    @Override
+    public List<Article> getArticleByIds(List<Integer> ids, Integer userId) {
+        return articleMapper.getArticleByIds(ids,userId);
     }
 
 }

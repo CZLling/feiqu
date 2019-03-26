@@ -1,9 +1,14 @@
 package com.feiqu.system.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSON;
+import com.feiqu.common.enums.YesNoEnum;
 import com.feiqu.system.model.Article;
+import com.feiqu.system.model.ArticleExample;
+import com.feiqu.system.model.UserActionNew;
 import com.feiqu.system.service.ArticleService;
 import com.feiqu.system.service.RecommenderService;
+import com.feiqu.system.service.UserActionNewService;
 import com.google.common.collect.Lists;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
@@ -35,47 +40,85 @@ public class RecommenderServiceImpl implements RecommenderService {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private UserActionNewService userActionNewService;
+
+    @Autowired
+    RecommenderService recommenderService;
+
     @Override
-    public List<Article> userBasedRecommender(int userID, int size) throws TasteException {
+    public List<RecommendedItem> userBasedRecommender(int userID, int size) throws TasteException {
         int NEIGHBORHOOD_NUM = 2;
         UserSimilarity similarity  = new PearsonCorrelationSimilarity(dataModel);
         UserNeighborhood neighbor = new NearestNUserNeighborhood(NEIGHBORHOOD_NUM, similarity, dataModel );
         Recommender recommender =new CachingRecommender( new GenericUserBasedRecommender(dataModel , neighbor, similarity));
         List<RecommendedItem> recommendations = recommender.recommend(userID, size);
-        List<Integer> articleId = Lists.newArrayList();
-        for (RecommendedItem recommendedItem : recommendations){
-            articleId.add(Integer.valueOf(String.valueOf(recommendedItem.getItemID())));
-        }
-        _log.info(">>>>>>>>>>>>>>>>"+ JSON.toJSONString(recommendations));
-        // todo 根据articleId集合查询笔记
-//        articleService.
-        return null;
+        return recommendations;
     }
 
     @Override
-    public List<Article> myItemBasedRecommender(int userID, int size) throws TasteException {
+    public List<RecommendedItem> myItemBasedRecommender(int userID, int size) throws TasteException {
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
-        Recommender   recommender = new GenericItemBasedRecommender(dataModel, itemSimilarity);
+        Recommender   recommender = new CachingRecommender(new GenericItemBasedRecommender(dataModel, itemSimilarity));
         List<RecommendedItem> recommendations = recommender.recommend(userID,size);
-        List<Integer> articleId = Lists.newArrayList();
-        for (RecommendedItem recommendedItem : recommendations){
-            articleId.add(Integer.valueOf(String.valueOf(recommendedItem.getItemID())));
-        }
-        _log.info(">>>>>>>>>>>>>>>>"+ JSON.toJSONString(recommendations));
-        return null;
+        return recommendations;
+
     }
 
     @Override
-    public List<Article> itemBasedRecommender(int userID, int article, int size) throws TasteException {
+    public List<RecommendedItem> itemBasedRecommender(int userID, int article, int size) throws TasteException {
         List<Long> recommendItems = new ArrayList<>();
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
         GenericItemBasedRecommender  recommender = new GenericItemBasedRecommender(dataModel, itemSimilarity);
         List<RecommendedItem> recommendations = recommender.recommendedBecause(userID,article,size);
-        List<Integer> articleId = Lists.newArrayList();
-        for (RecommendedItem recommendedItem : recommendations){
-            articleId.add(Integer.valueOf(String.valueOf(recommendedItem.getItemID())));
-        }
-        _log.info(">>>>>>>>>>>>>>>>"+ JSON.toJSONString(recommendations));
-        return null;
+        return recommendations;
     }
+
+    @Override
+    public List<Article>  AutoRecommend(int actionUserId,int article) throws TasteException {
+        int size = 5;
+
+            List<RecommendedItem> userBasedRecommend = recommenderService.userBasedRecommender(actionUserId, size);
+            List<RecommendedItem> myItemBasedRecommend = recommenderService.myItemBasedRecommender(actionUserId, size);
+            userBasedRecommend.addAll(myItemBasedRecommend);
+        List<Integer> articleId = Lists.newArrayList();
+        for (RecommendedItem recommendedItem : userBasedRecommend){
+            if(!articleId.contains(recommendedItem)){
+                articleId.add(Integer.valueOf(String.valueOf(recommendedItem.getItemID())));
+            }
+        }
+        _log.info(">>>>>>>>>>>>>>>>"+ JSON.toJSONString(articleId));
+        List<Article> recommendArticles = articleService.getArticleByIds(articleId,actionUserId);
+        _log.info(">>>>>>>>>>>>>>>>"+ JSON.toJSONString(recommendArticles));
+        return recommendArticles;
+    }
+
+
+    @Override
+    public List<Article> SelfBuiltRecommendation(int actionUserId, int article) throws Exception {
+        List<UserActionNew> actionlist = userActionNewService.getActionByUserId(actionUserId);
+        List<Article> recommendArticles;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
+        //
+        if (CollectionUtil.isEmpty(actionlist)) {
+            ArticleExample example = new ArticleExample();
+            example.setOrderByClause("browse_count desc");
+            example.createCriteria().andIsRecommendEqualTo(YesNoEnum.YES.getValue());
+            recommendArticles = articleService.selectByExample(example);
+            return recommendArticles;
+        }
+        //
+//        List<Article> autoRecommendArticles = AutoRecommend(actionUserId, article);
+//        if (CollectionUtil.isNotEmpty(autoRecommendArticles)) {
+//            return autoRecommendArticles;
+//        }
+        //
+        List<Integer> labels = Lists.newArrayList();
+        actionlist.forEach(userActionNew -> labels.add(userActionNew.getArticleLabel()));
+        recommendArticles = articleService.getArticleByLabels(labels, actionUserId);
+        return recommendArticles;
+    }
+
+
+
 }
+

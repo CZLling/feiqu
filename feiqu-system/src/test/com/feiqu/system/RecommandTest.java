@@ -32,8 +32,8 @@ public class RecommandTest {
       int userID = 2 ;
       int size = 5;
       try {
-          List<Article> articles = recommenderService.userBasedRecommender(userID, size);
-          List<Article> articless = recommenderService.myItemBasedRecommender(userID, size);
+//          List<Article> articles = recommenderService.userBasedRecommender(userID, size);
+//          List<Article> articless = recommenderService.myItemBasedRecommender(userID, size);
       }catch (Exception e){
           loger.error("error",e);
 

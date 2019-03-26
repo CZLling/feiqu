@@ -48,16 +48,20 @@ public class IndexController extends BaseController {
     @Autowired
     private ArticleService articleService;
 
-//    @Autowired
-//    private SuperBeautyService superBeautyService;
     @Autowired
     private FqLabelService fqLabelService;
+
     @Autowired
     private FqUserService fqUserService;
+
     @Autowired
     private WebUtil webUtil;
+
     @Autowired
     private UserActionNewService userActionNewService;
+
+    @Autowired
+    RecommenderService recommenderService;
 
     @GetMapping(value = {"index",""})
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(defaultValue = "1") Integer pageIndex,
@@ -120,22 +124,12 @@ public class IndexController extends BaseController {
             example.getOredCriteria().get(0).andArticleTitleLike("%"+keyword+"%");
         }
         List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);//所有笔记
-
-        List<UserActionNew> list = userActionNewService.getActionByUserId(fqUser.getId());
-        List<Article> recommendArticles;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
-        if(CollectionUtil.isNotEmpty(list)){
-            List<Integer> labels = Lists.newArrayList();
-            for (UserActionNew userActionNew:list){
-                labels.add(userActionNew.getArticleLabel());
-            }
-            recommendArticles = articleService.getArticleByLabels(labels);
-        }else{
-            example.clear();
-            example.setOrderByClause("browse_count desc");
-            example.createCriteria().andIsRecommendEqualTo(YesNoEnum.YES.getValue());
-            recommendArticles = articleService.selectByExample(example);
+        List<Article> recommendArticles = Lists.newArrayList();
+        try {
+            recommendArticles = recommenderService.SelfBuiltRecommendation(fqUser.getId(),22) ;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
+        }catch (Exception e){
+            logger.error("推荐算法异常",e);
         }
-
         PageInfo page = new PageInfo(articles);
         model.addAttribute("recommendArticles",recommendArticles);
         model.addAttribute("articles",articles);

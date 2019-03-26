@@ -1,9 +1,11 @@
 package com.feiqu.web;
 
 
+import com.alibaba.fastjson.JSON;
 import com.feiqu.FeiQuApplication;
 import com.feiqu.system.model.Article;
 import com.feiqu.system.service.RecommenderService;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,30 +29,58 @@ public class RecommandTest {
 
     @Test
     public void  userBasedRecommender(){
-      int userID = 2 ;
+      int userID = 3 ;
       int size = 5;
       try {
-          List<Article> articles = recommenderService.userBasedRecommender(userID, size);
-          List<Article> articless = recommenderService.myItemBasedRecommender(userID, size);
+          List<RecommendedItem> recommendations = recommenderService.userBasedRecommender(userID, size);
       }catch (Exception e){
           loger.error("error",e);
-
       }
-
     }
+
+
+
+    @Test
+    public void myItemBasedRecommender(){
+        int userID = 3 ;
+        int size = 2;
+        try {
+            List<RecommendedItem> recommendations = recommenderService.myItemBasedRecommender(userID, size);
+        }catch (Exception e){
+            loger.error("error",e);
+
+        }
+    }
+
+
 
     @Test
     public void  itemBasedRecommender(){
       int userID = 2 ;
-      int size = 1;
+      int size = 5;
+      int article = 22;
       try {
-          List<Article> articless = recommenderService.itemBasedRecommender(userID,11, size);
+          List<RecommendedItem> recommendations = recommenderService.itemBasedRecommender(userID,article, size);
       }catch (Exception e){
           loger.error("error",e);
 
       }
+    }
+
+
+    @Test
+    public void FinallyRecommend() {
+        int userID = 2;
+        int article = 22;
+        try {
+            List<Article> recommendArticles = recommenderService. AutoRecommend(userID, article);
+        } catch (Exception e) {
+            loger.error("error", e);
+        }
 
     }
+
+
 
 
 }
