@@ -21,6 +21,7 @@ import com.feiqu.system.pojo.response.raiyi.SingleData;
 import com.feiqu.system.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jeesuite.cache.command.RedisString;
 import org.apache.commons.lang.StringUtils;
@@ -66,6 +67,8 @@ public class ArticleController extends BaseController {
     private FqCollectService fqCollectService;
     @Autowired
     private FqUserService fqUserService;
+    @Autowired
+    RecommenderService recommenderService;
 
    /* @ResponseBody
     @RequestMapping("/generate")
@@ -439,6 +442,7 @@ public class ArticleController extends BaseController {
     public String articleDetail(@PathVariable Integer articleId,HttpServletRequest request,HttpServletResponse response, Model model){
         _log.info(">>>>>>>>>>>>>>>>"+articleId);
         Article article = articleService.selectByPrimaryKey(articleId);
+        FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
         if(article == null){
             return GENERAL_NOT_FOUNF_404_URL;
         }
@@ -456,14 +460,13 @@ public class ArticleController extends BaseController {
         model.addAttribute("commentList",commentList);
         model.addAttribute("article",article);
         model.addAttribute("oUser",oUser);
-
-        //查询类似的笔记 类别
-        ArticleExample articleExample = new ArticleExample();
-        articleExample.createCriteria().andLabelEqualTo(article.getLabel()).andDelFlagEqualTo(YesNoEnum.NO.getValue());
-        articleExample.setOrderByClause("browse_count desc");
-        PageHelper.startPage(1,10,false);
-        List<Article> articles = articleService.selectByExample(articleExample);
-        articles =  articles.stream().filter(e-> !e.getId().equals(article.getId())).collect(Collectors.toList());
+        //查询类似的笔记类别
+        List<Article> articles = Lists.newArrayList();
+        try {
+            articles = recommenderService.itemBasedRecommender(fqUser.getId(),articleId,CalRecommendEnum.RECOMMEND_COUNT.getValue());
+        }catch (Exception e){
+        _log.error("推荐算法异常",e);
+    }
         model.addAttribute("articles",articles);
         return "/article/detail.html";
     }

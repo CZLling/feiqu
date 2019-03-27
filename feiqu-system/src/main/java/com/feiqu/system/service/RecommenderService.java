@@ -8,15 +8,13 @@ import java.util.List;
 
 public interface RecommenderService {
 
-    List<RecommendedItem>  userBasedRecommender(int userID, int size) throws TasteException;
+    List<Article>  userBasedRecommender(int userID, int size) throws TasteException;
 
-    List<RecommendedItem>  myItemBasedRecommender(int userID,int size) throws TasteException;
+    List<Article>  myItemBasedRecommender(int userID, int size) throws TasteException;
 
-    List<RecommendedItem>  itemBasedRecommender(int userID,int article,int size) throws TasteException;
+    List<Article>  itemBasedRecommender(int userID, int articleId, int size) throws TasteException;
 
-    List<Article> AutoRecommend(int actionUserId,int article)throws TasteException;
-
-    List<Article>  SelfBuiltRecommendation(int actionUserId,int article) throws Exception;
+    List<Article>  selfBuiltRecommendation(Integer actionUserId, Integer recommendType) throws Exception;
 
 
 }

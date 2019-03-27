@@ -38,7 +38,7 @@ public interface ArticleMapper {
 
     List<ArticleUserDetail> selectUserByExampleWithBLOBs(ArticleExample example);
 
-    List<Article> getArticleByLabels(@Param("labels") List<Integer> labels, @Param("userId") Integer userId);
+    List<Article> getArticleByLabels(@Param("labels") List<Integer> labels, @Param("userId") Integer userId,@Param("count") Integer count);
 
     List<Article> getArticleByIds(@Param("ids") List<Integer> ids, @Param("userId") Integer userId);
 }

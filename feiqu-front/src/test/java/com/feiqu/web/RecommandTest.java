@@ -32,7 +32,7 @@ public class RecommandTest {
       int userID = 3 ;
       int size = 5;
       try {
-          List<RecommendedItem> recommendations = recommenderService.userBasedRecommender(userID, size);
+          List<Article> articles = recommenderService.userBasedRecommender(userID, size);
       }catch (Exception e){
           loger.error("error",e);
       }
@@ -45,7 +45,7 @@ public class RecommandTest {
         int userID = 3 ;
         int size = 2;
         try {
-            List<RecommendedItem> recommendations = recommenderService.myItemBasedRecommender(userID, size);
+            List<Article> articles = recommenderService.myItemBasedRecommender(userID, size);
         }catch (Exception e){
             loger.error("error",e);
 
@@ -60,7 +60,7 @@ public class RecommandTest {
       int size = 5;
       int article = 22;
       try {
-          List<RecommendedItem> recommendations = recommenderService.itemBasedRecommender(userID,article, size);
+          List<Article> articles = recommenderService.itemBasedRecommender(userID,article, size);
       }catch (Exception e){
           loger.error("error",e);
 
@@ -73,7 +73,7 @@ public class RecommandTest {
         int userID = 2;
         int article = 22;
         try {
-            List<Article> recommendArticles = recommenderService. AutoRecommend(userID, article);
+            List<Article> recommendArticles = recommenderService.selfBuiltRecommendation(userID, article);
         } catch (Exception e) {
             loger.error("error", e);
         }

@@ -417,7 +417,10 @@
       and user_id != #{userId}
       and del_flag = 0
     </if>
-    order by browse_count DESC LIMIT 5
+    order by browse_count DESC
+    <if test="count != null" >
+      LIMIT #{count}
+    </if>
   </select>
 
   <select id="getArticleByIds" parameterType="Map" resultMap="BaseResultMap">

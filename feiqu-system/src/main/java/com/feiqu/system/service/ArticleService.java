@@ -15,7 +15,9 @@ import java.util.List;
 */
 public interface ArticleService extends BaseService<Article, ArticleExample> {
     List<ArticleUserDetail> selectUserByExampleWithBLOBs(ArticleExample example);
-    List<Article> getArticleByLabels(List<Integer> labels, Integer userId);
+
+    List<Article> getArticleByLabels(List<Integer> labels, Integer userId,Integer count);
+
     List<Article> getArticleByIds(List<Integer> ids, Integer userId);
 
 }

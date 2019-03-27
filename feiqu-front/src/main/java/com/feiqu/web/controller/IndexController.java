@@ -126,7 +126,7 @@ public class IndexController extends BaseController {
         List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);//所有笔记
         List<Article> recommendArticles = Lists.newArrayList();
         try {
-            recommendArticles = recommenderService.SelfBuiltRecommendation(fqUser.getId(),22) ;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
+            recommendArticles = recommenderService.selfBuiltRecommendation(fqUser.getId(),1) ;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
         }catch (Exception e){
             logger.error("推荐算法异常",e);
         }
