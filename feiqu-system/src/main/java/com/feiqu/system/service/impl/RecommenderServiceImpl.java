@@ -56,15 +56,7 @@ public class RecommenderServiceImpl implements RecommenderService {
         UserNeighborhood neighbor = new NearestNUserNeighborhood(CalRecommendEnum.NEIGHBORHOOD_NUM.getValue(), similarity, dataModel );
         Recommender recommender =new CachingRecommender( new GenericUserBasedRecommender(dataModel , neighbor, similarity));
         List<RecommendedItem> recommendations = recommender.recommend(userID, size);
-        if(CollectionUtil.isNotEmpty(recommendations)) {
-            List<Integer> articleId = Lists.newArrayList();
-            for (RecommendedItem recommendedItem : recommendations) {
-                articleId.add(Integer.valueOf(String.valueOf(recommendedItem.getItemID())));
-            }
-            List<Article> recommendArticles = articleService.getArticleByIds(articleId, userID);
-            return recommendArticles;
-        }
-        return null;
+        return queryArticleForRecommend(recommendations,userID);
     }
 
     @Override
@@ -72,6 +64,10 @@ public class RecommenderServiceImpl implements RecommenderService {
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
         Recommender   recommender = new CachingRecommender(new GenericItemBasedRecommender(dataModel, itemSimilarity));
         List<RecommendedItem> recommendations = recommender.recommend(userID,size);
+        return queryArticleForRecommend(recommendations,userID);
+    }
+
+    private List<Article> queryArticleForRecommend(List<RecommendedItem> recommendations,int userID){
         if(CollectionUtil.isNotEmpty(recommendations)) {
             List<Integer> articleId = Lists.newArrayList();
             for (RecommendedItem recommendedItem : recommendations) {
@@ -79,17 +75,19 @@ public class RecommenderServiceImpl implements RecommenderService {
             }
             List<Article> recommendArticles = articleService.getArticleByIds(articleId, userID);
             return recommendArticles;
+        }else{
+            return new ArrayList<>();
         }
-        return null;
     }
+
+
 
     @Override
     public List<Article> itemBasedRecommender(int userID, int articleId, int size) throws TasteException {
-        List<Long> recommendItems = new ArrayList<>();
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
         GenericItemBasedRecommender recommender = new GenericItemBasedRecommender(dataModel, itemSimilarity);
         List<RecommendedItem> recommendations = recommender.recommendedBecause(userID, articleId, size);
-        //基于单篇文章的自动推荐，为空就同之前逻辑
+        //基于单篇文章的协同过滤推荐，推荐结果为空就同之前逻辑推荐相同标签笔记
         if (CollectionUtil.isEmpty(recommendations)) {
             Article article = articleService.selectByPrimaryKey(articleId);
             ArticleExample articleExample = new ArticleExample();
@@ -123,7 +121,7 @@ public class RecommenderServiceImpl implements RecommenderService {
             recommendArticles = articleService.selectByExample(example);
             return recommendArticles;
         }
-        //基于用户推荐和基于协同过滤算法推荐，user_action不为空-->自动推荐笔记
+        //基于用户和基于内容的协同过滤算法推荐，user_action不为空-->自动推荐笔记
         List<Article> autoRecommendArticles = Lists.newArrayList();
         if(recommendType == CalRecommendEnum.RECOMMEND_USER.getValue()){
             autoRecommendArticles = userBasedRecommender(actionUserId,CalRecommendEnum.RECOMMEND_COUNT.getValue());
