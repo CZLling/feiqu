@@ -12,7 +12,7 @@
     <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
   </resultMap>
   <resultMap id="UserResultMap" type="com.feiqu.system.pojo.response.DetailReplyResponse" extends="BaseResultMap">
-    <result column="nckname" jdbcType="VARCHAR" property="nckname" />
+    <result column="nckname" jdbcType="VARCHAR" property="nickname" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
   </resultMap>
   <sql id="Example_Where_Clause">

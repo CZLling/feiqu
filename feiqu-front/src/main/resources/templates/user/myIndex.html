@@ -250,8 +250,8 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             var layid = this.getAttribute('lay-id')
             if (layid == 'follow'){
                 getFollowees(e.index)
-            }else if(layid == 'theme'){
-                getThemes(e.index)
+            // }else if(layid == 'theme'){
+            //     getThemes(e.index)
             }
             location.hash = 'user-center-tab='+ this.getAttribute('lay-id');
         });

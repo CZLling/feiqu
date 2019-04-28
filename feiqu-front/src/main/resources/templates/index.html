@@ -33,17 +33,24 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
 <div class="layui-container layui-clear topToFix">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8">
-            <div class="c-panel" id="fq-notice">
-                <div class="c-panel-title fly-filter"><a>通知</a></div>
-                <ul class="c-list">
-                    <%if(isNotEmpty(noticeList)){%>
-                <%for(var notice in noticeList){%>
-                        <li> <a href="${ctxPath}/u/${notice.userId}/peopleIndex" class="fly-avatar"> <img src="${notice.icon}" alt="${notice.nickname}"> </a> <h2> <a class="layui-badge">公告</a> <a href="${ctxPath}/notice/view/${notice.id}">${notice.title}</a> </h2>
-                            <div class="c-list-info"><a href="${ctxPath}/u/${notice.userId}/peopleIndex"><cite>${notice.nickname}</cite><i class="iconfont icon-renzheng" title="认证信息：官方人员"></i></a> <span>${notice.createTime,'yyyy-MM-dd HH:mm:ss'}</span><span class="c-list-num"> <i class="iconfont icon-pinglun1" title="回复"></i>${notice.commentNum!0}</span></div></li>
-                <%}%>
-                    <%}%>
-                </ul>
-            </div>
+            <!--<div class="c-panel" id="fq-notice">-->
+                <!--<div class="c-panel-title fly-filter"><a>通知</a></div>-->
+                <!--<ul class="c-list">-->
+                    <!--<%if(isNotEmpty(noticeList)){%>-->
+                <!--<%for(var notice in noticeList){%>-->
+                        <!--<li> <a href="${ctxPath}/u/${notice.userId}/peopleIndex" class="fly-avatar"><img src="${notice.icon}" alt="${notice.nickname}"> </a>-->
+                            <!--<h2> <a class="layui-badge">公告</a> <a href="${ctxPath}/notice/view/${notice.id}">${notice.title}</a> </h2>-->
+                            <!--<div class="c-list-info">-->
+                                <!--<a href="${ctxPath}/u/${notice.userId}/peopleIndex"><cite>${notice.nickname}</cite>-->
+                                    <!--<i class="iconfont icon-renzheng" title="认证信息：官方人员"></i></a>-->
+                                <!--<span>${notice.createTime,'yyyy-MM-dd HH:mm:ss'}</span>-->
+                                <!--<span class="c-list-num"> <i class="iconfont icon-pinglun1" title="回复"></i>${notice.commentNum!0}</span>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                <!--<%}%>-->
+                    <!--<%}%>-->
+                <!--</ul>-->
+            <!--</div>-->
             <div class="c-panel">
                 <div class="c-panel-title">
                     <span class="title-first">最新的5个随笔(每半个小时更新一次)</span>
@@ -174,7 +181,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 </div>
             </div>
             <div class="c-panel">
-                <div class="c-panel-title">热门笔记(每半小时更新一次)</div>
+                <div class="c-panel-title">月热门笔记(每半小时更新一次)</div>
                 <div class="hot detail-box">
                     <%if(isEmpty(articleList)){%>
                     <p>暂无热门笔记</p>

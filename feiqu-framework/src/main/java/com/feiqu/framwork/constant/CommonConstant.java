@@ -3,7 +3,6 @@ package com.feiqu.framwork.constant;
 import cn.hutool.core.date.DateUtil;
 import com.feiqu.system.model.Article;
 import com.feiqu.system.model.FqArea;
-import com.feiqu.system.model.FqNotice;
 import com.feiqu.system.pojo.response.KeyValue;
 import com.feiqu.system.pojo.response.ThoughtWithUser;
 import com.feiqu.system.pojo.response.UserActiveNumResponse;
@@ -40,7 +39,7 @@ public class CommonConstant {
     public static Integer SIGN_DAYS_QUDOU_NUM_30_MORE = 20;
     public static Integer DEAULT_PAGE_SIZE= 10;
 
-    public static List<FqNotice> FQ_NOTICE_LIST= null;
+//    public static List<FqNotice> FQ_NOTICE_LIST= null;
     public static List<Article> HOT_ARTICLE_LIST= null;
     public static List<FqArea> AREA_LIST= null;
 //    public static List<BeautyUserResponse> HOT_BEAUTY_LIST = null;
@@ -91,12 +90,14 @@ public class CommonConstant {
     public static String GENERAL_CUSTOM_ERROR_CODE = "errorMsg";//
 
 
-    public static List<Object> BEAUTY_BANNERS = Lists.newArrayList();
-    public static String BEAUTY_BANNERS_REDIS = "fq_beauty_banner";
-
     //网址点击事件统计
     public static String FQ_USER_WEBSITE_CLICK_COUNT = "fq_user_website_click_count";
     public static String FQ_WEBSITE_ALL = "fq_website_all";
     public static List<UserActiveNumResponse> FQ_ACTIVE_USER_LIST = Lists.newArrayList();
+
+    //计算推荐笔记
+    public static int NEIGHBORHOOD_NUM = 2 ;
+    public static int RECOMMEND_COUNT = 5 ;
+
 
 }

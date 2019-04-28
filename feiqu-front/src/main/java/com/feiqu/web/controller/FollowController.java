@@ -1,9 +1,10 @@
 package com.feiqu.web.controller;
 
-import com.feiqu.framwork.web.base.BaseController;
 import com.feiqu.common.base.BaseResult;
 import com.feiqu.common.enums.ResultEnum;
 import com.feiqu.common.enums.YesNoEnum;
+import com.feiqu.framwork.util.WebUtil;
+import com.feiqu.framwork.web.base.BaseController;
 import com.feiqu.system.model.FqUser;
 import com.feiqu.system.model.UserFollow;
 import com.feiqu.system.model.UserFollowExample;
@@ -11,7 +12,6 @@ import com.feiqu.system.pojo.cache.FqUserCache;
 import com.feiqu.system.pojo.response.FollowUserResponse;
 import com.feiqu.system.service.FqUserService;
 import com.feiqu.system.service.UserFollowService;
-import com.feiqu.framwork.util.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

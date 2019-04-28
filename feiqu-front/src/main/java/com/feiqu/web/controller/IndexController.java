@@ -2,6 +2,7 @@ package com.feiqu.web.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.feiqu.common.enums.TopicTypeEnum;
@@ -11,13 +12,12 @@ import com.feiqu.framwork.constant.CommonConstant;
 import com.feiqu.framwork.util.WebUtil;
 import com.feiqu.framwork.web.base.BaseController;
 import com.feiqu.system.model.*;
+import com.feiqu.system.pojo.cache.FqUserCache;
 import com.feiqu.system.pojo.response.ArticleUserDetail;
-import com.feiqu.system.service.ArticleService;
-import com.feiqu.system.service.FqLabelService;
-import com.feiqu.system.service.FqUserService;
-import com.feiqu.system.service.ThoughtService;
+import com.feiqu.system.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +48,20 @@ public class IndexController extends BaseController {
     @Autowired
     private ArticleService articleService;
 
-//    @Autowired
-//    private SuperBeautyService superBeautyService;
     @Autowired
     private FqLabelService fqLabelService;
+
     @Autowired
     private FqUserService fqUserService;
+
     @Autowired
     private WebUtil webUtil;
+
+    @Autowired
+    private UserActionNewService userActionNewService;
+
+    @Autowired
+    RecommenderService recommenderService;
 
     @GetMapping(value = {"index",""})
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(defaultValue = "1") Integer pageIndex,
@@ -75,7 +81,7 @@ public class IndexController extends BaseController {
 //            PageInfo page = new PageInfo(thoughts);
             model.addAttribute("newThoughtList",CommonConstant.NEW_THOUGHT_LIST );
             model.addAttribute("thoughtList",CommonConstant.HOT_THOUGHT_LIST );
-            model.addAttribute("noticeList", CommonConstant.FQ_NOTICE_LIST);
+//            model.addAttribute("noticeList", CommonConstant.FQ_NOTICE_LIST);
             model.addAttribute("articleList", CommonConstant.HOT_ARTICLE_LIST);
 //            model.addAttribute("beautyList", CommonConstant.HOT_BEAUTY_LIST );
             model.addAttribute("newUserList", CommonConstant.NEW_SIMPLE_USERS );
@@ -91,14 +97,15 @@ public class IndexController extends BaseController {
     }
 
     @RequestMapping(value = "/superGeek")
-    public String superGeekIndex(Model model, Integer labelId, String order, String keyword){
-       return superGeek(model,1,order,labelId,keyword);
+    public String superGeekIndex(Model model, Integer labelId, String order, String keyword ,HttpServletRequest request, HttpServletResponse response){
+       return superGeek(model,1,order,labelId,keyword,request,response);
     }
 
     @RequestMapping(value = "/superGeek/{pageIndex}")
     public String superGeek(Model model, @PathVariable(required = false) Integer pageIndex,
-                            String order, Integer labelId, String keyword){
+                            String order, Integer labelId, String keyword, HttpServletRequest request, HttpServletResponse response){
         PageHelper.startPage(pageIndex, 20);
+        FqUserCache fqUser = webUtil.currentUser(request, response); //当前用户
         ArticleExample example = new ArticleExample();
         if("zan".equals(order)){
             example.setOrderByClause("like_count desc ");
@@ -116,11 +123,13 @@ public class IndexController extends BaseController {
         if(StringUtils.isNotBlank(keyword)){
             example.getOredCriteria().get(0).andArticleTitleLike("%"+keyword+"%");
         }
-        List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);
-        example.clear();
-        example.setOrderByClause("create_time desc");
-        example.createCriteria().andIsRecommendEqualTo(YesNoEnum.YES.getValue());
-        List<Article> recommendArticles = articleService.selectByExample(example);
+        List<ArticleUserDetail> articles = articleService.selectUserByExampleWithBLOBs(example);//所有笔记
+        List<Article> recommendArticles = Lists.newArrayList();
+        try {
+            recommendArticles = recommenderService.selfBuiltRecommendation(fqUser.getId(),1) ;//推荐笔记,user_action不为空-->前两个标签的五篇笔记，为空-->管理员推荐笔记
+        }catch (Exception e){
+            logger.error("推荐算法异常",e);
+        }
         PageInfo page = new PageInfo(articles);
         model.addAttribute("recommendArticles",recommendArticles);
         model.addAttribute("articles",articles);
