@@ -314,7 +314,7 @@ public class DailyOnceJob {
                 article.setUserId(22);
 //                article.setUserId(8);
                 article.setLikeCount(0);
- int index1 = content.indexOf("id=\"comment\"");
+            int index1 = content.indexOf("id=\"comment\"");
             if(index1 != -1){
                 content = content.substring(0,index1-3)+"</dd>";
             }

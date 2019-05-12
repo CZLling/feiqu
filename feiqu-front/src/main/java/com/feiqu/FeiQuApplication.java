@@ -26,5 +26,6 @@ public class FeiQuApplication
 //        SpringApplication.run(FeiQuApplication.class, args);
         springApplication.run(args);
         System.out.println("(♥◠‿◠)ﾉﾞ  随想笔记启动成功   ლ(´ڡ`ლ)ﾞ");
+
     }
 }
