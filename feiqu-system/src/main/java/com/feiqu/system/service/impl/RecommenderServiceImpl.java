@@ -50,6 +50,8 @@ public class RecommenderServiceImpl implements RecommenderService {
     @Autowired
     RecommenderService recommenderService;
 
+
+    //基于用户的协同过滤推荐
     @Override
     public List<Article> userBasedRecommender(int userID, int size) throws TasteException {
         UserSimilarity similarity  = new PearsonCorrelationSimilarity(dataModel);
@@ -59,6 +61,7 @@ public class RecommenderServiceImpl implements RecommenderService {
         return queryArticleForRecommend(recommendations,userID);
     }
 
+    //基于单篇笔记的协同过滤推荐
     @Override
     public List<Article> myItemBasedRecommender(int userID,int size) throws TasteException {
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
@@ -67,6 +70,7 @@ public class RecommenderServiceImpl implements RecommenderService {
         return queryArticleForRecommend(recommendations,userID);
     }
 
+    //拿之前的推荐结果去笔记表查询文章
     private List<Article> queryArticleForRecommend(List<RecommendedItem> recommendations,int userID){
         if(CollectionUtil.isNotEmpty(recommendations)) {
             List<Integer> articleId = Lists.newArrayList();
@@ -87,7 +91,7 @@ public class RecommenderServiceImpl implements RecommenderService {
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
         GenericItemBasedRecommender recommender = new GenericItemBasedRecommender(dataModel, itemSimilarity);
         List<RecommendedItem> recommendations = recommender.recommendedBecause(userID, articleId, size);
-        //基于单篇文章的协同过滤推荐，推荐结果为空就同之前逻辑推荐相同标签笔记
+        //基于单篇文章的协同过滤推荐，自动推荐结果为空就推荐相同标签笔记
         if (CollectionUtil.isEmpty(recommendations)) {
             Article article = articleService.selectByPrimaryKey(articleId);
             ArticleExample articleExample = new ArticleExample();
@@ -98,6 +102,7 @@ public class RecommenderServiceImpl implements RecommenderService {
             articles = articles.stream().filter(e -> !e.getId().equals(article.getId())).collect(Collectors.toList());
             return articles;
         }
+        //基于单篇文章的协同过滤推荐
         List<Integer> articleIds = Lists.newArrayList();
         for (RecommendedItem recommendedItem : recommendations) {
             articleIds.add(Integer.valueOf(String.valueOf(recommendedItem.getItemID())));
@@ -149,7 +154,6 @@ public class RecommenderServiceImpl implements RecommenderService {
             actionlist.forEach(userActionNew -> labels.add(userActionNew.getArticleLabel()));
             recommendArticles = articleService.getArticleByLabels(labels, actionUserId,CalRecommendEnum.RECOMMEND_COUNT.getValue());
             return recommendArticles;
-
     }
 
 
