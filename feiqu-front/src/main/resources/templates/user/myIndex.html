@@ -113,7 +113,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
             <div class="cwd-msg"> 您的邮箱尚未验证，这比较影响您的帐号安全，<a href="${ctxPath}/u/activate/">立即去激活？</a> </div>
             <%}%>
             <h1>${user.nickname!}
-                ${decode(user.sex,1,"<i class=\"iconfont icon-nan\"></i>",2,"<i class=\"iconfont icon-nv\"></i>","<i class='iconfont  icon-wenda'></i>")}
+                ${decode(user.sex,1,"<i class='iconfont icon-nan'></i>",2,"<i class='iconfont icon-nv'></i>","<i class='iconfont  icon-wenda'></i>")}
                 </h1>
             <div class="emotion">情感状态：<%select{
                 case user.isSingle == 1:print("单身");break;

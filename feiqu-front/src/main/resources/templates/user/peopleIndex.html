@@ -53,7 +53,7 @@ include("/common/_headwithlogin.html",{user:user,isLogin:isLogin}){}
                 <%if(oUser.role == 1){%>
                 <span class="staff">官方人员</span>
                 <%}%>
-                ${decode(user.sex,1,"<i class=\"iconfont icon-nan\"></i>",2,"<i class=\"iconfont icon-nv\"></i>","<i class='iconfont  icon-wenda'></i>")}
+                ${decode(user.sex,1,"<i class='iconfont icon-nan'></i>",2,"<i class='iconfont icon-nv'></i>","<i class='iconfont  icon-wenda'></i>")}
             </h1>
             <div class="emotion">情感状态：<%select{
                 case oUser.isSingle == 1:print("单身");break;
