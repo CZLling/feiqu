@@ -1,6 +1,6 @@
 package com.feiqu.common.enums;
 
-//用户行为
+//定义用户行为权重
 public enum UserActionEnum {
     BROWSE("浏览",1),
     LIKE("点赞",2),

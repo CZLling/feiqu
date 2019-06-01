@@ -8,7 +8,6 @@ public enum CalRecommendEnum {
     RECOMMEND_ARTICLE("基于笔记推荐",2);
 
 
-
     private String desc;
     private Integer value;
 
