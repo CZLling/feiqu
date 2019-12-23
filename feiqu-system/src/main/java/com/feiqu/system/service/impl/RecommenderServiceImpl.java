@@ -61,7 +61,7 @@ public class RecommenderServiceImpl implements RecommenderService {
         return queryArticleForRecommend(recommendations,userID);
     }
 
-    //基于单篇笔记的协同过滤推荐
+    //基于笔记的协同过滤推荐
     @Override
     public List<Article> myItemBasedRecommender(int userID,int size) throws TasteException {
         ItemSimilarity itemSimilarity = new PearsonCorrelationSimilarity(dataModel);
